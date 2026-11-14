@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://drive.google.com https://*.googleusercontent.com; connect-src https://script.google.com https://script.googleusercontent.com; font-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Muro Participa · Projecte Xarxa 2027</title>
+<meta name="description" content="Què falta a Muro? Digues-ho ací, sense donar el teu nom.">
+<meta name="theme-color" content="#003465">
+<link rel="icon" href="logo.png">
+<link rel="apple-touch-icon" href="logo.png">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="cap">
+  <div class="fila">
+    <a class="marca" href="#inici"><img class="logo" src="logo.png" alt="" aria-hidden="true"><span><b>Muro Participa</b><small>Projecte Xarxa 2027</small></span></a>
+    <div class="eines">
+      <button class="eina" id="lletra" type="button" aria-label="Lletra més gran">A+</button>
+      <button class="eina" id="idioma" type="button">ES</button>
+    </div>
+  </div>
+  <h1 id="lema"></h1>
+</header>
+<main id="vista" aria-live="polite"><div class="carrega">…</div></main>
+<footer class="peu" id="peu"></footer>
+<noscript><p style="padding:16px">Cal activar JavaScript per a fer servir l'app.</p></noscript>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
