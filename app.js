@@ -465,12 +465,23 @@ RUTES.mapa = function () {
 RUTES.formacio = function () {
   carrega();
   api('apiFormacio', LANG).then(function (llista) {
+    // Les imatges es carreguen de googleusercontent (la miniatura de Drive demana iniciar sessió si hi ha un compte obert).
+    llista.forEach(function (f) {
+      var m = /[?&]id=([\w-]+)/.exec(f.miniatura || '');
+      if (!m) return;
+      f.miniatura = 'https://lh3.googleusercontent.com/d/' + m[1] + '=w800';
+      if (f.tipus === 'imatge') f.veure = 'https://lh3.googleusercontent.com/d/' + m[1] + '=w1080';
+    });
+    // Més noves primer; si tenen la mateixa data, per títol (1 de 3, 2 de 3...).
+    llista.sort(function (a, b) {
+      return String(b.data || '').localeCompare(String(a.data || '')) || String(a.titol).localeCompare(String(b.titol), 'ca', { numeric: true });
+    });
     var h = tornar() + '<h2>' + esc(t('formacio')) + '</h2>';
     if (!llista.length) h += '<p class="sec">' + esc(t('capFormacio')) + '</p>';
     // Sense reproductors incrustats: la miniatura obri el fitxer a Drive quan la persona ho tria.
     llista.forEach(function (f) {
       h += '<section class="targeta"><span class="etiqueta gris">' + esc(f.tipus === 'video' ? 'Vídeo' : f.tipus === 'imatge' ? 'Infografia' : 'Document') +
-        '</span><h3>' + esc(f.titol) + '</h3><a href="' + esc(f.veure) + '" target="_blank" rel="noopener"><img class="mini" alt="' + esc(f.titol) +
+        '</span><h3>' + esc(f.titol) + '</h3><a href="' + esc(f.veure) + '" target="_blank" rel="noopener"><img class="mini" referrerpolicy="no-referrer" alt="' + esc(f.titol) +
         '" src="' + esc(f.miniatura) + '"></a>' + enllac(f.veure, (f.tipus === 'video' ? '▶ ' : '') + t('veure')) +
         compartir('formacio', f.titol) + '</section>';
     });
