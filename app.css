@@ -69,6 +69,10 @@ details{margin:6px 0}
 summary{cursor:pointer;font-weight:700;min-height:40px;display:flex;align-items:center}
 .codi{font:800 1.4em monospace;letter-spacing:.12em;background:#fff;border:2px dashed var(--taronja);border-radius:10px;padding:10px;text-align:center;margin:8px 0}
 .carrega{padding:30px 0;text-align:center;color:var(--gris)}
+.esquelet{height:14px;border-radius:7px;margin:14px 0;background:linear-gradient(90deg,#F1E8D8 25%,#F9F4EA 50%,#F1E8D8 75%);background-size:200% 100%;animation:brill 1.3s ease-in-out infinite}
+.esquelet.curt{width:60%}
+@keyframes brill{0%{background-position:100% 0}100%{background-position:-100% 0}}
+@media (prefers-reduced-motion:reduce){.esquelet{animation:none}}
 .nivell{border-left:6px solid var(--taronja)}
 .mini{width:100%;max-height:340px;object-fit:contain;border-radius:10px;background:#F4EEE3;margin:8px 0}
 .video{width:100%;aspect-ratio:9/16;max-height:520px;border:0;border-radius:10px;margin:8px 0;background:#000}

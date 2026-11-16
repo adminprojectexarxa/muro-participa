@@ -314,8 +314,20 @@ RUTES.novetats = function () {
 
 // ---------- inici ----------
 RUTES.inici = function () {
-  carrega();
+  // El menú es pinta de seguida; l'enquesta destacada i les novetats arriben quan respon el servidor.
+  var raj = function (r, a, b) { return '<a class="rajola" href="#' + r + '">' + esc(t(a)) + '<span>' + esc(t(b)) + '</span></a>'; };
+  pinta('<div id="iniciDalt"></div>' +
+    '<nav class="rajoles">' + raj('enquestes', 'enquestes', 'enquestesSub') + raj('propostes', 'propostes', 'propostesSub') +
+    raj('formacio', 'formacio', 'formacioSub') + raj('grups', 'grups', 'grupsSub') + raj('programa', 'programa', 'programaSub') +
+    raj('preguntes', 'preguntes', 'preguntesSub') + raj('ple', 'ple', 'pleSub') + raj('mapa', 'mapa', 'mapaSub') + '</nav>' +
+    '<div id="iniciNov"><section class="targeta" aria-busy="true"><h2>' + esc(t('novetats')) + '</h2>' +
+    '<div class="esquelet"></div><div class="esquelet"></div><div class="esquelet curt"></div></section></div>' +
+    '<div id="iniciComp"></div>' +
+    '<section class="targeta nivell"><h2>' + esc(t('implicat')) + '</h2><p>' + esc(t('implicatText')) +
+    '</p><a class="boto sec2" href="#nivells">' + esc(t('comParticipar')) + '</a></section>');
   api('apiInici', LANG).then(function (d) {
+    var dalt = $('iniciDalt'), nov = $('iniciNov'), comp = $('iniciComp');
+    if (!dalt || !nov || !comp) return; // la persona ja ha canviat de pantalla
     S.enllacos = d.enllacos;
     var h = '';
     if (d.periode.congelat) h += '<div class="avis">' + esc(t('congelat')) + '</div>';
@@ -326,22 +338,16 @@ RUTES.inici = function () {
         (e.tancament ? ' · ' + esc(t('fins')) + ' ' + esc(dt(e.tancament)) : '') +
         '</p><a class="boto" href="#enquesta/' + encodeURIComponent(e.id) + '">' + esc(t('contestar')) + '</a></section>';
     }
-    var raj = function (r, a, b) { return '<a class="rajola" href="#' + r + '">' + esc(t(a)) + '<span>' + esc(t(b)) + '</span></a>'; };
-    h += '<nav class="rajoles">' + raj('enquestes', 'enquestes', 'enquestesSub') + raj('propostes', 'propostes', 'propostesSub') +
-      raj('formacio', 'formacio', 'formacioSub') + raj('grups', 'grups', 'grupsSub') + raj('programa', 'programa', 'programaSub') +
-      raj('preguntes', 'preguntes', 'preguntesSub') + raj('ple', 'ple', 'pleSub') + raj('mapa', 'mapa', 'mapaSub') + '</nav>';
-    if (d.novetats && d.novetats.length) {
-      h += '<section class="targeta"><h2>' + esc(t('novetats')) + '</h2>' + llistaNovetats(d.novetats) +
-        (d.mesNovetats ? '<a class="boto sec2" href="#novetats">' + esc(t('totesNovetats')) + '</a>' : '') + '</section>';
-    }
-    if (d.comptador) {
-      h += '<section class="targeta"><h2>Participació</h2><p>' + d.comptador.respostes + ' respostes · ' +
-        d.comptador.propostes + ' propostes · ' + d.comptador.visites + ' visites</p></section>';
-    }
-    h += '<section class="targeta nivell"><h2>' + esc(t('implicat')) + '</h2><p>' + esc(t('implicatText')) +
-      '</p><a class="boto sec2" href="#nivells">' + esc(t('comParticipar')) + '</a></section>';
-    pinta(h);
-  }).catch(falla);
+    dalt.innerHTML = h;
+    nov.innerHTML = (d.novetats && d.novetats.length) ?
+      '<section class="targeta"><h2>' + esc(t('novetats')) + '</h2>' + llistaNovetats(d.novetats) +
+      (d.mesNovetats ? '<a class="boto sec2" href="#novetats">' + esc(t('totesNovetats')) + '</a>' : '') + '</section>' : '';
+    comp.innerHTML = d.comptador ? '<section class="targeta"><h2>Participació</h2><p>' + d.comptador.respostes + ' respostes · ' +
+      d.comptador.propostes + ' propostes · ' + d.comptador.visites + ' visites</p></section>' : '';
+  }).catch(function (e) {
+    var nov = $('iniciNov');
+    if (nov) nov.innerHTML = error(e);
+  });
 };
 
 // ---------- enquestes ----------
