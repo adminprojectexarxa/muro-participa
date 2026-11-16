@@ -39,7 +39,8 @@ var T = {
     teuNum: "Proposta enviada. El teu número és", segueix: "Seguix la teua proposta",
     numero: "Número", buscar: "Buscar", publicades: "Propostes publicades", capProposta: "Encara no n'hi ha cap.",
     noTrobada: "No trobem eixa proposta.", pendentRev: "pendent de revisió",
-    capFormacio: "Encara no hi ha peces de formació.", veure: "Obrir",
+    capFormacio: "Encara no hi ha peces de formació.", veure: "Obrir", noFormacio: "Esta formació ja no està disponible.",
+    infografia: ["infografia", "infografies"], video: ["vídeo", "vídeos"], document: ["document", "documents"], tocaImatge: "Toca una imatge per a vore-la més gran.",
     capGrup: "Els grups de treball comencen després de l'acte del 21 de novembre.",
     tancades: "propostes tancades", queDiu: "Què ens vau dir", estudiant: "Què estem estudiant",
     propGrup: "Propostes del grup", alPrograma: "Al programa", veins: "Propostes de veïns per a este grup",
@@ -124,7 +125,8 @@ var T = {
     teuNum: "Propuesta enviada. Tu número es", segueix: "Sigue tu propuesta",
     numero: "Número", buscar: "Buscar", publicades: "Propuestas publicadas", capProposta: "Todavía no hay ninguna.",
     noTrobada: "No encontramos esa propuesta.", pendentRev: "pendiente de revisión",
-    capFormacio: "Todavía no hay piezas de formación.", veure: "Abrir",
+    capFormacio: "Todavía no hay piezas de formación.", veure: "Abrir", noFormacio: "Esta formación ya no está disponible.",
+    infografia: ["infografía", "infografías"], video: ["vídeo", "vídeos"], document: ["documento", "documentos"], tocaImatge: "Toca una imagen para verla más grande.",
     capGrup: "Los grupos de trabajo empiezan después del acto del 21 de noviembre.",
     tancades: "propuestas cerradas", queDiu: "Qué nos dijisteis", estudiant: "Qué estamos estudiando",
     propGrup: "Propuestas del grupo", alPrograma: "En el programa", veins: "Propuestas de vecinos para este grupo",
@@ -172,7 +174,7 @@ function esc(s) {
   });
 }
 // Les crides van a la part de Google (Apps Script) sense galetes: no depenen dels comptes del mòbil.
-var LECTURES = ['apiInici', 'apiNovetats', 'apiEnquestes', 'apiEnquesta', 'apiResultats', 'apiTemes', 'apiPropostes', 'apiEstatProposta',
+var LECTURES = ['apiInici', 'apiNovetats', 'apiFormacions', 'apiEnquestes', 'apiEnquesta', 'apiResultats', 'apiTemes', 'apiPropostes', 'apiEstatProposta',
   'apiMapa', 'apiFormacio', 'apiGrupsPublic', 'apiSeguiment', 'apiPrograma', 'apiPle', 'apiPreguntes', 'apiActes',
   'apiAcces', 'apiGrup', 'apiRevisio', 'apiReduit', 'apiAssemblea', 'apiPanell'];
 function api(fn) {
@@ -513,29 +515,50 @@ RUTES.mapa = function () {
 };
 
 // ---------- formació ----------
-RUTES.formacio = function () {
+// Cada formació té un títol i una o més peces. A la llista només ix el títol; en entrar, les infografies.
+function compteFormacio(peces) {
+  var n = { imatge: 0, video: 0, altre: 0 };
+  peces.forEach(function (p) { if (p.tipus === 'imatge') n.imatge++; else if (p.tipus === 'video') n.video++; else n.altre++; });
+  var parts = [];
+  if (n.imatge) parts.push(n.imatge + ' ' + t('infografia')[n.imatge > 1 ? 1 : 0]);
+  if (n.video) parts.push(n.video + ' ' + t('video')[n.video > 1 ? 1 : 0]);
+  if (n.altre) parts.push(n.altre + ' ' + t('document')[n.altre > 1 ? 1 : 0]);
+  return parts.join(' · ');
+}
+function llistaFormacions(llista, ruta) {
+  return '<div class="novetats">' + llista.map(function (f) {
+    return '<a class="nov" href="#' + esc(ruta(f)) + '"><span class="nov-tit">' + esc(f.titol) + '</span>' +
+      '<span class="nov-sub">' + esc(compteFormacio(f.peces)) + '</span></a>';
+  }).join('') + '</div>';
+}
+function pecesFormacio(f) {
+  var h = '';
+  f.peces.forEach(function (p) {
+    if (p.tipus === 'imatge') {
+      h += '<a class="peca" href="' + esc(p.veure) + '" target="_blank" rel="noopener"><img class="mini peca-img" loading="lazy" referrerpolicy="no-referrer" alt="' +
+        esc(p.titol) + '" src="' + esc(p.imatge) + '"></a>';
+    } else {
+      h += '<section class="targeta"><span class="etiqueta gris">' + esc(p.tipus === 'video' ? 'Vídeo' : 'Document') + '</span><h3>' + esc(p.titol) + '</h3>' +
+        '<img class="mini" referrerpolicy="no-referrer" alt="" src="' + esc(p.miniatura) + '">' +
+        enllac(p.veure, (p.tipus === 'video' ? '▶ ' : '') + t('veure')) + '</section>';
+    }
+  });
+  if (f.peces.some(function (p) { return p.tipus === 'imatge'; })) h = '<p class="sec">' + esc(t('tocaImatge')) + '</p>' + h;
+  return h;
+}
+RUTES.formacio = function (id) {
   carrega();
-  api('apiFormacio', LANG).then(function (llista) {
-    // Les imatges es carreguen de googleusercontent (la miniatura de Drive demana iniciar sessió si hi ha un compte obert).
-    llista.forEach(function (f) {
-      var m = /[?&]id=([\w-]+)/.exec(f.miniatura || '');
-      if (!m) return;
-      f.miniatura = 'https://lh3.googleusercontent.com/d/' + m[1] + '=w800';
-      if (f.tipus === 'imatge') f.veure = 'https://lh3.googleusercontent.com/d/' + m[1] + '=w1080';
-    });
-    // Més noves primer; si tenen la mateixa data, per títol (1 de 3, 2 de 3...).
-    llista.sort(function (a, b) {
-      return String(b.data || '').localeCompare(String(a.data || '')) || String(a.titol).localeCompare(String(b.titol), 'ca', { numeric: true });
-    });
+  api('apiFormacions', LANG).then(function (llista) {
+    if (id) {
+      var f = llista.filter(function (x) { return x.id === id; })[0];
+      if (!f) { pinta(tornar('formacio') + '<p class="sec">' + esc(t('noFormacio')) + '</p>'); return; }
+      pinta(tornar('formacio') + '<h2>' + esc(f.titol) + '</h2><p class="sec">' + esc(compteFormacio(f.peces)) + '</p>' +
+        pecesFormacio(f) + compartir('formacio/' + f.id, f.titol));
+      return;
+    }
     var h = tornar() + '<h2>' + esc(t('formacio')) + '</h2>';
-    if (!llista.length) h += '<p class="sec">' + esc(t('capFormacio')) + '</p>';
-    // Sense reproductors incrustats: la miniatura obri el fitxer a Drive quan la persona ho tria.
-    llista.forEach(function (f) {
-      h += '<section class="targeta"><span class="etiqueta gris">' + esc(f.tipus === 'video' ? 'Vídeo' : f.tipus === 'imatge' ? 'Infografia' : 'Document') +
-        '</span><h3>' + esc(f.titol) + '</h3><a href="' + esc(f.veure) + '" target="_blank" rel="noopener"><img class="mini" referrerpolicy="no-referrer" alt="' + esc(f.titol) +
-        '" src="' + esc(f.miniatura) + '"></a>' + enllac(f.veure, (f.tipus === 'video' ? '▶ ' : '') + t('veure')) +
-        compartir('formacio', f.titol) + '</section>';
-    });
+    h += llista.length ? '<section class="targeta">' + llistaFormacions(llista, function (f) { return 'formacio/' + f.id; }) + '</section>' :
+      '<p class="sec">' + esc(t('capFormacio')) + '</p>';
     pinta(h);
   }).catch(falla);
 };
@@ -741,7 +764,12 @@ function vGrup(gid) {
           return '<h3>' + esc(p.text) + '</h3>' + barres(p.valors);
         }).join('') + '</details>';
     });
-    h += '<h3>' + esc(t('formacio')) + '</h3>' + (d.formacio.length ? d.formacio.map(function (f) { return enllac(f.veure, f.titol); }).join('') : '<p class="sec">—</p>');
+    h += '<h3>' + esc(t('formacio')) + '</h3>';
+    var fms = d.formacions || [];
+    h += fms.length ? fms.map(function (f) {
+      return '<details class="targeta formacio-grup"><summary><span class="nov-tit">' + esc(f.titol) + '</span><span class="nov-sub">' +
+        esc(compteFormacio(f.peces)) + '</span></summary>' + pecesFormacio(f) + '</details>';
+    }).join('') : (d.formacio.length ? d.formacio.map(function (f) { return enllac(f.veure, f.titol); }).join('') : '<p class="sec">—</p>');
     h += '<h3>' + esc(t('documents')) + '</h3>' + (d.documents.length ? d.documents.map(function (f) { return enllac(f.veure, f.titol); }).join('') : '<p class="sec">—</p>');
     h += '<h3>' + esc(t('contractes')) + '</h3>';
     if (d.contractes.length) {

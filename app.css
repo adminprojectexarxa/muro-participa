@@ -78,3 +78,11 @@ summary{cursor:pointer;font-weight:700;min-height:40px;display:flex;align-items:
 .video{width:100%;aspect-ratio:9/16;max-height:520px;border:0;border-radius:10px;margin:8px 0;background:#000}
 .parany{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .amagat{display:none}
+
+.peca{display:block;margin:0 0 14px}
+.peca-img{max-height:none;margin:0;display:block;border-radius:14px;box-shadow:0 2px 10px rgba(0,52,101,.12)}
+.formacio-grup summary{cursor:pointer;list-style:none;padding-right:30px;position:relative}
+.formacio-grup summary::-webkit-details-marker{display:none}
+.formacio-grup summary::after{content:'\203A';position:absolute;right:6px;top:50%;transform:translateY(-50%) rotate(90deg);font-size:1.6em;font-weight:700;color:var(--taronja)}
+.formacio-grup[open] summary::after{transform:translateY(-50%) rotate(-90deg)}
+.formacio-grup[open] summary{margin-bottom:12px}
