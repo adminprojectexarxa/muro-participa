@@ -36,6 +36,14 @@ p{margin:6px 0}
 .rajola{background:#fff;border-radius:14px;min-height:84px;padding:12px;display:flex;flex-direction:column;justify-content:space-between;text-decoration:none;font-weight:800}
 .rajola span{color:var(--gris);font-weight:600;font-size:.8em}
 .llista a.fila{display:flex;justify-content:space-between;align-items:center;min-height:48px;background:#fff;border-radius:12px;padding:0 14px;margin-bottom:8px;text-decoration:none;font-weight:700}
+.novetats{margin-top:4px}
+.nov{display:block;position:relative;padding:12px 30px 12px 0;border-top:1px solid #EFE4D2;text-decoration:none;color:var(--blau)}
+.nov:first-child{border-top:0;padding-top:4px}
+.nov::after{content:'\203A';position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:1.7em;font-weight:700;line-height:1;color:var(--taronja)}
+.nov-cap{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.nov-data{color:var(--gris);font-size:.8em;font-weight:600}
+.nov-tit{display:block;font-weight:800;line-height:1.3}
+.nov-sub{display:block;color:var(--gris);font-size:.85em;font-weight:600;margin-top:3px}
 label{display:block;font-weight:700;margin:12px 0 6px}
 input[type=text],input[type=number],input[type=date],select,textarea{width:100%;min-height:46px;border:1.5px solid #9AA7B6;border-radius:10px;padding:10px 12px;font:500 1em 'Montserrat';color:var(--blau);background:#fff}
 textarea{min-height:110px;resize:vertical}

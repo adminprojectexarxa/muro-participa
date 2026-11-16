@@ -19,7 +19,8 @@ var T = {
     preguntes: "Pregunta com funciona", preguntesSub: "Respostes clares",
     ple: "El ple, en clar", pleSub: "Què s'ha votat",
     mapa: "Mapa", mapaSub: "Propostes per llocs",
-    novetats: "Novetats", implicat: "Vols implicar-te més?",
+    novetats: "Novetats", novTipus: { enquesta: "Enquesta", formacio: "Formació", grup: "Grup de treball", ple: "Ple" }, parts: "parts", totesNovetats: "Veure totes les novetats", capNovetats: "Encara no hi ha novetats.",
+    mesos: ["gen.", "febr.", "març", "abr.", "maig", "juny", "jul.", "ag.", "set.", "oct.", "nov.", "des."], implicat: "Vols implicar-te més?",
     implicatText: "Hi ha cinc maneres de participar. Tu tries fins on vols arribar.",
     comParticipar: "Com participar", oberta: "Enquesta oberta", contestar: "Contestar",
     preguntesN: "preguntes · anònima", fins: "Fins al",
@@ -103,7 +104,8 @@ var T = {
     preguntes: "Pregunta cómo funciona", preguntesSub: "Respuestas claras",
     ple: "El pleno, claro", pleSub: "Qué se ha votado",
     mapa: "Mapa", mapaSub: "Propuestas por lugares",
-    novetats: "Novedades", implicat: "¿Quieres implicarte más?",
+    novetats: "Novedades", novTipus: { enquesta: "Encuesta", formacio: "Formación", grup: "Grupo de trabajo", ple: "Pleno" }, parts: "partes", totesNovetats: "Ver todas las novedades", capNovetats: "Todavía no hay novedades.",
+    mesos: ["ene.", "feb.", "mar.", "abr.", "may.", "jun.", "jul.", "ago.", "sept.", "oct.", "nov.", "dic."], implicat: "¿Quieres implicarte más?",
     implicatText: "Hay cinco maneras de participar. Tú eliges hasta dónde llegar.",
     comParticipar: "Cómo participar", oberta: "Encuesta abierta", contestar: "Contestar",
     preguntesN: "preguntas · anónima", fins: "Hasta el",
@@ -170,7 +172,7 @@ function esc(s) {
   });
 }
 // Les crides van a la part de Google (Apps Script) sense galetes: no depenen dels comptes del mòbil.
-var LECTURES = ['apiInici', 'apiEnquestes', 'apiEnquesta', 'apiResultats', 'apiTemes', 'apiPropostes', 'apiEstatProposta',
+var LECTURES = ['apiInici', 'apiNovetats', 'apiEnquestes', 'apiEnquesta', 'apiResultats', 'apiTemes', 'apiPropostes', 'apiEstatProposta',
   'apiMapa', 'apiFormacio', 'apiGrupsPublic', 'apiSeguiment', 'apiPrograma', 'apiPle', 'apiPreguntes', 'apiActes',
   'apiAcces', 'apiGrup', 'apiRevisio', 'apiReduit', 'apiAssemblea', 'apiPanell'];
 function api(fn) {
@@ -208,6 +210,39 @@ function barres(valors) {
   }).join('');
 }
 function dt(s) { var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s || '')); return m ? m[3] + '/' + m[2] + '/' + m[1] : (s || ''); }
+// Data curta per a les novetats: «15 nov.»; amb l'any si no és l'actual.
+function dtCurt(s) {
+  var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s || ''));
+  if (!m) return s || '';
+  var d = Number(m[3]) + ' ' + t('mesos')[Number(m[2]) - 1];
+  return Number(m[1]) === new Date().getFullYear() ? d : d + ' ' + m[1];
+}
+// Les peces d'una mateixa sèrie («… (1 de 3)», «… (2 de 3)») fan una sola novetat.
+function agruparNovetats(llista) {
+  var out = [], idx = {};
+  llista.forEach(function (n) {
+    var titol = String(n.titol || '');
+    if (n.tipus === 'formacio') {
+      var m = /\s*\(\s*\d+\s+de\s+\d+\s*\)\s*$/i.exec(titol);
+      if (m) titol = titol.slice(0, m.index);
+    }
+    var clau = n.tipus + '|' + n.ruta + '|' + titol, parts = Number(n.parts) || 1;
+    if (n.tipus === 'formacio' && idx[clau] !== undefined) { out[idx[clau]].parts += parts; return; }
+    idx[clau] = out.length;
+    out.push({ tipus: n.tipus, titol: titol, ruta: n.ruta, data: n.data, grup: n.grup, parts: parts });
+  });
+  return out;
+}
+// Llista de novetats (pantalla principal i «Totes les novetats»).
+function llistaNovetats(llista) {
+  return '<div class="novetats">' + agruparNovetats(llista).map(function (n) {
+    var tipus = (t('novTipus') || {})[n.tipus] || '';
+    var sub = n.grup ? n.grup : (n.parts > 1 ? n.parts + ' ' + t('parts') : '');
+    return '<a class="nov" href="#' + esc(n.ruta) + '"><span class="nov-cap">' + (tipus ? '<span class="etiqueta gris">' + esc(tipus) + '</span>' : '') +
+      '<span class="nov-data">' + esc(dtCurt(n.data)) + '</span></span><span class="nov-tit">' + esc(n.titol) + '</span>' +
+      (sub ? '<span class="nov-sub">' + esc(sub) + '</span>' : '') + '</a>';
+  }).join('') + '</div>';
+}
 function valor(id) { var el = $(id); return el ? el.value : ''; }
 function marcat(id) { var el = $(id); return !!(el && el.checked); }
 function enllac(url, text) {
@@ -265,6 +300,18 @@ document.addEventListener('error', function (ev) {
   if (el && el.tagName === 'IMG' && el.classList.contains('mini')) el.style.display = 'none';
 }, true);
 
+// ---------- totes les novetats ----------
+RUTES.novetats = function () {
+  carrega();
+  api('apiNovetats', LANG).then(function (d) {
+    var h = tornar() + '<section class="targeta"><h2>' + esc(t('novetats')) + '</h2>';
+    if (d.congelat) h += '<p class="sec">' + esc(t('congelat')) + '</p>';
+    else if (!d.novetats.length) h += '<p class="sec">' + esc(t('capNovetats')) + '</p>';
+    else h += llistaNovetats(d.novetats);
+    pinta(h + '</section>');
+  }).catch(falla);
+};
+
 // ---------- inici ----------
 RUTES.inici = function () {
   carrega();
@@ -284,10 +331,8 @@ RUTES.inici = function () {
       raj('formacio', 'formacio', 'formacioSub') + raj('grups', 'grups', 'grupsSub') + raj('programa', 'programa', 'programaSub') +
       raj('preguntes', 'preguntes', 'preguntesSub') + raj('ple', 'ple', 'pleSub') + raj('mapa', 'mapa', 'mapaSub') + '</nav>';
     if (d.novetats && d.novetats.length) {
-      h += '<section class="targeta"><h2>' + esc(t('novetats')) + '</h2><div class="llista">' + d.novetats.map(function (n) {
-        return '<a class="fila" href="#' + esc(n.ruta) + '"><span>' + esc(n.titol) + (n.grup ? ' · ' + esc(n.grup) : '') +
-          '</span><span class="sec data">' + esc(dt(n.data)) + '</span></a>';
-      }).join('') + '</div></section>';
+      h += '<section class="targeta"><h2>' + esc(t('novetats')) + '</h2>' + llistaNovetats(d.novetats) +
+        (d.mesNovetats ? '<a class="boto sec2" href="#novetats">' + esc(t('totesNovetats')) + '</a>' : '') + '</section>';
     }
     if (d.comptador) {
       h += '<section class="targeta"><h2>Participació</h2><p>' + d.comptador.respostes + ' respostes · ' +
