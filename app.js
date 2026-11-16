@@ -46,6 +46,8 @@ var T = {
     propGrup: "Propostes del grup", alPrograma: "Al programa", veins: "Propostes de veïns per a este grup",
     proposarGrup: "Envia una proposta a este grup", capEstudi: "El grup tot just comença.",
     notaPublica: "El treball intern del grup no es publica: ací ixen només les propostes que el grup tanca i les que passen al programa.",
+    membres: "Membres", gestio: "Gestió", mesMarcats: "Els problemes més marcats",
+    notaIndic: "Cada persona podia marcar més d'un problema. Les dades són de qui ha contestat, no de tot Muro.",
     programaBuit: "El programa es publicarà a partir de febrer, amb cada mesura enllaçada a la proposta o l'enquesta d'on ix.",
     pleBuit: "Encara no hi ha cap resum de ple.", font: "Font",
     ferPregunta: "Pregunta com funciona l'Ajuntament", laPregunta: "La teua pregunta",
@@ -100,7 +102,7 @@ var T = {
                 ["Administració", "El panell de gestió, amb tot."]],
     accesPeu: "Cap codi va lligat al teu nom. Si el teu ja no funciona, demana'n un de nou al grup reduït.",
     espaiGrup: "Espai del grup", visGrup: "Només el grup", visPub: "Públic", visTancar: "Públic en tancar-les",
-    avisGrup: "Açò només ho veieu els membres del grup. El públic veu la pàgina del grup amb el títol de l'enquesta, què esteu estudiant, les propostes que tanqueu i les que passen al programa.",
+    avisGrup: "Açò només ho veieu els membres del grup. El públic veu la pàgina del grup amb els indicadors principals de l'enquesta (els de l'acte), què esteu estudiant, les propostes que tanqueu i les que passen al programa.",
     veurePublica: "Vore la pàgina pública del grup",
     resultatsComplets: "Resultats complets de l'enquesta", respostesLliures: "Les respostes lliures ixen tal com les va escriure la gent. No les compartiu fora del grup.",
     docsContractes: "Documents i contractes", notaVeins: "Les propostes dels veïns ja s'han revisat i són públiques. L'estat que hi poseu també es veu a la pàgina pública.",
@@ -108,13 +110,35 @@ var T = {
     grupsActius: "Grups actius", capActiu: "Encara no hi ha cap grup actiu.", totsGrups: "Tots els grups (activar o desactivar)",
     paginaPublica: "Pàgina pública", perRevisar: "Per revisar", pendentsPub: "pendents de publicar (propostes i preguntes).",
     queVeu: "Què veu cadascú",
-    queVeuLlista: [["Públic, sense codi", "Inici, enquestes noves, propostes, formació pública, programa, ple i preguntes. De cada grup actiu: el títol de l'enquesta, què estudia, les propostes que tanca i les que passen al programa."],
-                   ["Membres d'un grup (codi del grup)", "L'espai del seu grup: punt de partida (infografies i resultats complets de l'enquesta), formació, documents, contractes, propostes dels veïns i fitxes."],
+    queVeuLlista: [["Públic, sense codi", "Inici, enquestes noves, propostes, formació pública, programa, ple i preguntes. De cada grup actiu: els indicadors principals de l'enquesta (els de l'acte), què estudia, les propostes que tanca i les que passen al programa."],
+                   ["Membres d'un grup (codi del grup)", "Només el seu grup: punt de partida (infografies i resultats complets de l'enquesta), formació del grup i comuna, documents, contractes, propostes dels veïns i fitxes. No veuen la gestió ni els altres grups."],
                    ["Revisió", "Les propostes i preguntes pendents de publicar."],
                    ["Grup reduït", "Tots els grups (activar-los i entrar-hi), la revisió i l'assemblea."],
                    ["Administració", "Tot, i este panell."]],
     interruptors: "Interruptors", avisInterr: "Canvien l'app per a tothom.", rolNom: { grup: "Grup", reduit: "Grup reduït", assemblea: "Assemblea", revisio: "Revisió", admin: "Administració" },
-    pubVis: "Pública", nomesGrups: "Només", inactiva: "Inactiva"
+    pubVis: "Pública", nomesGrups: "Només", inactiva: "Inactiva",
+    membresTitol: "Membres", membresIntro: "Per als membres dels grups de treball i de l'assemblea.",
+    membresRols: [["Codi del grup", "L'espai de treball del teu grup: punt de partida, formació, documents, propostes i fitxes."],
+                  ["Codi d'assemblea", "Les votacions i les propostes dels grups pendents de decidir."]],
+    gestioTitol: "Gestió de l'app", gestioIntro: "Per a qui porta l'app. Els membres dels grups entren per «Membres».",
+    gestioRols: [["Administració", "Tot: grups, revisió, enquestes, formació, codis i interruptors."],
+                 ["Grup reduït", "Activar els grups, entrar-hi i l'assemblea."],
+                 ["Revisió", "Publicar o no les propostes i preguntes dels veïns."]],
+    codiGestio: "Este codi és de gestió. Entra per «Gestió», al peu de l'app.",
+    codiMembre: "Este codi és de membre. Entra per «Membres», al peu de l'app.",
+    panellIntro: "Tria què vols fer.",
+    menu: {
+      grups: ["Grups", "Activar o desactivar grups, entrar a l'espai de cada grup i vore la seua pàgina pública."],
+      revisio: ["Revisar propostes", "Publicar o no les propostes i preguntes dels veïns."],
+      assemblea: ["Assemblea", "Les votacions i les propostes dels grups pendents de decidir."],
+      enquestes: ["Enquestes de l'app", "Obrir, tancar i destacar les enquestes noves."],
+      formacio: ["Formació", "Qui veu cada infografia: tothom o només un grup."],
+      codis: ["Codis d'accés", "Generar i desactivar els codis dels grups, la revisió, el grup reduït i l'assemblea."],
+      votacions: ["Votacions", "Crear votacions de l'assemblea i els codis de vot."],
+      comptadors: ["Comptadors", "Visites, respostes i propostes."],
+      interruptors: ["Interruptors", "Opcions que canvien l'app per a tothom."],
+      queveu: ["Què veu cadascú", "Què veu el públic, què veuen els membres d'un grup i què veu cada codi."]
+    }
   },
   es: {
     lema: "¿Qué le falta a Muro? Dilo aquí, sin dar tu nombre.",
@@ -155,6 +179,8 @@ var T = {
     propGrup: "Propuestas del grupo", alPrograma: "En el programa", veins: "Propuestas de vecinos para este grupo",
     proposarGrup: "Envía una propuesta a este grupo", capEstudi: "El grupo acaba de empezar.",
     notaPublica: "El trabajo interno del grupo no se publica: aquí salen solo las propuestas que el grupo cierra y las que pasan al programa.",
+    membres: "Miembros", gestio: "Gestión", mesMarcats: "Los problemas más marcados",
+    notaIndic: "Cada persona podía marcar más de un problema. Los datos son de quien ha contestado, no de todo Muro.",
     programaBuit: "El programa se publicará a partir de febrero, con cada medida enlazada a la propuesta o la encuesta de donde sale.",
     pleBuit: "Todavía no hay ningún resumen de pleno.", font: "Fuente",
     ferPregunta: "Pregunta cómo funciona el Ayuntamiento", laPregunta: "Tu pregunta",
@@ -296,7 +322,7 @@ function capcalera() {
   $('lletra').onclick = function () { document.body.classList.toggle('gran'); };
   $('peu').innerHTML = '<p>' + esc(t('anonim')) + '</p><p><a href="#privacitat">' + esc(t('privacitat')) +
     '</a><a href="#info">' + esc(t('info')) + '</a><a href="#nivells">' + esc(t('comParticipar')) +
-    '</a><a href="#intern">' + esc(t('acces')) + '</a></p>';
+    '</a><a href="#membres">' + esc(t('membres')) + '</a><a href="#gestio">' + esc(t('gestio')) + '</a></p>';
 }
 
 // ---------- rutes ----------
@@ -611,6 +637,12 @@ RUTES.seguiment = function (id) {
       '<div><b>2</b><span><strong>' + esc(t('estudiant')) + '</strong><br>' + esc(g.estudiant || t('capEstudi')) + '</span></div>' +
       '<div><b>3</b><span><strong>' + esc(t('propGrup')) + '</strong><br>' + g.fitxes.length + '</span></div>' +
       '<div><b>4</b><span><strong>' + esc(t('alPrograma')) + '</strong><br>' + alProg.length + '</span></div></section>';
+    (g.indicadors || []).forEach(function (e) {
+      h += '<section class="targeta indic"><h3>' + esc(t('queDiu')) + '</h3><p class="sec">' + esc(e.titol) + '</p>' +
+        (e.pct !== null && e.pct !== undefined ? '<div class="gran-num"><b>' + esc(e.pct) + ' %</b><span>' + esc(e.text) + '</span></div>' : '') +
+        (e.barres.length ? '<h4>' + esc(t('mesMarcats')) + '</h4>' + barres(e.barres) : '') +
+        '<p class="sec">' + esc(t('notaIndic')) + '</p></section>';
+    });
     g.fitxes.forEach(function (f) {
       h += '<section class="targeta"><span class="estat t">' + esc(f.estat) + '</span><h3>' + esc(f.titol) + '</h3><p><b>' +
         esc(t('problemaQ')) + '</b> ' + esc(f.problema) + '</p><p><b>' + esc(t('proposta')) + ':</b> ' + esc(f.proposta) + '</p></section>';
@@ -733,26 +765,32 @@ RUTES.privacitat = function () {
 };
 
 // ---------- espais amb codi ----------
+var ROLS_ENTRADA = { membres: ['grup', 'assemblea'], gestio: ['admin', 'reduit', 'revisio'] };
+function entrada(tipus) {
+  if (S.codi) { ves(iniciRol(S.acces), true); return; }
+  var g = tipus === 'gestio';
+  pinta(tornar() + '<h2>' + esc(t(g ? 'gestioTitol' : 'membresTitol')) + '</h2><p>' + esc(t(g ? 'gestioIntro' : 'membresIntro')) + '</p><ul class="rols">' +
+    t(g ? 'gestioRols' : 'membresRols').map(function (r) { return '<li><b>' + esc(r[0]) + '</b>' + esc(r[1]) + '</li>'; }).join('') + '</ul>' +
+    '<form id="fcodi" class="targeta"><label for="icodi">' + esc(t('escriuCodi')) +
+    '</label><input type="text" id="icodi" autocomplete="off" autocapitalize="characters">' +
+    '<label class="opcio"><input type="checkbox" id="inorm">' + esc(t('normesConf')) + '</label>' +
+    '<div id="errcodi"></div><button class="boto" type="submit" id="bcodi">' + esc(t('entrar')) + '</button></form>' +
+    '<p class="sec">' + esc(t('accesPeu')) + '</p>');
+  $('fcodi').onsubmit = function (ev) {
+    ev.preventDefault();
+    if (!marcat('inorm')) { $('errcodi').innerHTML = error(t('calNormes')); return; }
+    var c = valor('icodi').trim().toUpperCase();
+    quan($('bcodi'), api('apiAcces', c, LANG), function (r) {
+      if (ROLS_ENTRADA[tipus].indexOf(r.rol) < 0) { $('errcodi').innerHTML = error(t(g ? 'codiMembre' : 'codiGestio')); return; }
+      S.codi = c; S.acces = r;
+      ves(iniciRol(r), true);
+    }, 'errcodi');
+  };
+}
+RUTES.membres = function () { entrada('membres'); };
+RUTES.gestio = function () { entrada('gestio'); };
 RUTES.intern = function (sub, ref) {
-  if (!S.codi) {
-    pinta(tornar() + '<h2>' + esc(t('acces')) + '</h2><p>' + esc(t('accesIntro')) + '</p><ul class="rols">' +
-      t('accesRols').map(function (r) { return '<li><b>' + esc(r[0]) + '</b>' + esc(r[1]) + '</li>'; }).join('') + '</ul>' +
-      '<form id="fcodi" class="targeta"><label for="icodi">' + esc(t('escriuCodi')) +
-      '</label><input type="text" id="icodi" autocomplete="off" autocapitalize="characters">' +
-      '<label class="opcio"><input type="checkbox" id="inorm">' + esc(t('normesConf')) + '</label>' +
-      '<div id="errcodi"></div><button class="boto" type="submit" id="bcodi">' + esc(t('entrar')) + '</button></form>' +
-      '<p class="sec">' + esc(t('accesPeu')) + '</p>');
-    $('fcodi').onsubmit = function (ev) {
-      ev.preventDefault();
-      if (!marcat('inorm')) { $('errcodi').innerHTML = error(t('calNormes')); return; }
-      var c = valor('icodi').trim().toUpperCase();
-      quan($('bcodi'), api('apiAcces', c, LANG), function (r) {
-        S.codi = c; S.acces = r;
-        ves(iniciRol(r), true);
-      }, 'errcodi');
-    };
-    return;
-  }
+  if (!S.codi) { ves('membres', true); return; }
   var vistes = { grup: vGrup, revisio: vRevisio, reduit: vReduit, assemblea: vAssemblea, panell: vPanell };
   var f = vistes[sub];
   if (!f) { ves(iniciRol(S.acces), true); return; }
@@ -769,9 +807,11 @@ function capInterna(titol, etiq) {
   var casa = S.acces ? iniciRol(S.acces) : 'inici';
   var ara = rutaActual();
   var torna = (ara === casa) ? 'inici' : casa;
-  var nomTorna = torna === 'inici' ? t('tornar') : (torna === 'intern/panell' ? t('panell') : (torna === 'intern/reduit' ? t('grupReduit') : t('tornar')));
+  if (/^intern\/grup\//.test(ara) && S.acces && (S.acces.rol === 'admin' || S.acces.rol === 'reduit')) torna = 'intern/reduit';
+  var nomTorna = torna === 'inici' ? t('tornar') : (torna === 'intern/panell' ? t('panell') :
+    (torna === 'intern/reduit' ? (S.acces.rol === 'admin' ? t('menu').grups[0] : t('grupReduit')) : t('tornar')));
   return '<div class="fila-int"><a class="tornar" href="#' + torna + '">‹ ' + esc(nomTorna) + '</a><a class="tornar" href="#" id="beixir">' + esc(t('eixir')) + '</a></div>' +
-    '<span class="etiqueta">' + esc(etiq || t('acces')) + '</span><h2>' + esc(titol) + '</h2>';
+    '<span class="etiqueta">' + esc(etiq || (S.acces && ROLS_ENTRADA.gestio.indexOf(S.acces.rol) >= 0 ? t('gestio') : t('membres'))) + '</span><h2>' + esc(titol) + '</h2>';
 }
 function secInt(n, titol, vis) {
   var v = { grup: ['vis-grup', t('visGrup')], pub: ['vis-pub', t('visPub')], tancar: ['vis-pub', t('visTancar')] }[vis];
@@ -787,7 +827,6 @@ function vGrup(gid) {
   api('apiGrup', S.codi, gid, LANG).then(function (d) {
     var g = d.grup;
     var h = capInterna(g.nom, t('espaiGrup'));
-    if (S.acces.rol === 'admin') h += '<p class="enllacos-int"><a href="#intern/reduit">' + esc(t('totsGrups')) + ' ›</a></p>';
     h += '<section class="avis-int">' + esc(t('avisGrup')) + ' <a href="#seguiment/' + esc(g.id) + '">' + esc(t('veurePublica')) + ' ›</a></section>';
     var fms = d.formacions || [];
     var esPartida = function (f) { return /^el-punt-de-partida/.test(f.id); };
@@ -929,9 +968,11 @@ function vRevisio() {
 function vReduit() {
   carrega();
   api('apiReduit', S.codi, LANG).then(function (d) {
-    var h = capInterna(t('grupReduit')) + '<p><a class="boto sec2" href="#intern/revisio">' + esc(t('revisio')) + ' (' + d.pendents + ')</a>' +
-      '<a class="boto sec2" href="#intern/assemblea">' + esc(t('assemblea')) + '</a></p>' +
-      '<section class="targeta"><table class="taula"><tr><th>' + esc(t('grups')) + '</th><th>' + esc(t('veins')) + '</th><th>' + esc(t('fitxes')) + '</th><th></th></tr>' +
+    var h = capInterna(S.acces.rol === 'admin' ? t('menu').grups[0] : t('grupReduit')) +
+      (S.acces.rol === 'admin' ? '' : '<p><a class="boto sec2" href="#intern/revisio">' + esc(t('revisio')) + ' (' + d.pendents + ')</a>' +
+      '<a class="boto sec2" href="#intern/assemblea">' + esc(t('assemblea')) + '</a></p>') +
+      '<p class="sec">Un grup actiu ix a la pantalla pública «Grups». El seu espai s\'obri amb el codi del grup.</p>' +
+      '<section class="targeta"><table class="taula"><tr><th>Grup</th><th>Propostes de veïns</th><th>Fitxes</th><th></th></tr>' +
       d.grups.map(function (g) {
         var f = g.fitxes;
         return '<tr><td>' + esc(g.nom) + '</td><td>' + g.propostesVeins + '</td><td>' + (f['Esborrany'] || 0) + ' / ' + (f['Proposta del grup'] || 0) + ' / ' +
@@ -1013,79 +1054,91 @@ function vAssemblea() {
   }).catch(falla);
 }
 
-function vPanell() {
+function vPanell(sec) {
   carrega();
   api('apiPanell', S.codi).then(function (d) {
     var c = d.comptadors;
-    var max = Math.max.apply(null, [1].concat(d.perDia.map(function (x) { return x.n; })));
     var nomGrup = {};
     d.grups.forEach(function (g) { nomGrup[g.id] = g.nom; });
-    var h = capInterna(t('panell'), t('rolNom').admin);
-    // Grups actius
-    var act = d.grups.filter(function (g) { return g.actiu; });
-    h += '<section class="targeta"><h3>' + esc(t('grupsActius')) + '</h3>' + (act.length ? act.map(function (g) {
-      return '<div class="fila-grup"><span>' + esc(g.nom) + '</span><span><a class="boto petit" href="#intern/grup/' + esc(g.id) + '">' + esc(t('espaiGrup')) +
-        '</a><a class="boto petit sec2" href="#seguiment/' + esc(g.id) + '">' + esc(t('paginaPublica')) + '</a></span></div>';
-    }).join('') : '<p class="sec">' + esc(t('capActiu')) + '</p>') + '<a class="boto sec2" href="#intern/reduit">' + esc(t('totsGrups')) + '</a></section>';
-    // Per revisar i assemblea
     var np = d.pendents.propostes.length + d.pendents.preguntes.length;
-    h += '<section class="targeta"><h3>' + esc(t('perRevisar')) + '</h3><p><b>' + np + '</b> ' + esc(t('pendentsPub')) + '</p>' +
-      '<a class="boto' + (np ? '' : ' sec2') + '" href="#intern/revisio">' + esc(t('revisio')) + '</a><a class="boto sec2" href="#intern/assemblea">' + esc(t('assemblea')) + '</a></section>';
-    // Què veu cadascú
-    h += '<details class="targeta formacio-grup"><summary><span class="nov-tit">' + esc(t('queVeu')) + '</span></summary><ul class="rols">' +
-      t('queVeuLlista').map(function (r) { return '<li><b>' + esc(r[0]) + '</b>' + esc(r[1]) + '</li>'; }).join('') + '</ul></details>';
-    // Comptadors
-    h += '<section class="targeta"><h3>Comptadors</h3><p>Visites hui: <b>' + c.visitesHui + '</b> · 30 dies: <b>' + c.visites30 + '</b><br>Respostes: <b>' +
-      c.respostes + '</b> · Propostes: <b>' + c.propostes + '</b> · Inscripcions: <b>' + c.inscripcions + '</b></p>' +
-      (d.perDia.length ? '<div class="dies">' : '<div class="dies amagat">') + d.perDia.map(function (x) { return '<i title="' + esc(x.data) + ': ' + x.n + '" style="height:' + Math.round(x.n * 100 / max) + '%"></i>'; }).join('') +
-      '</div><p class="sec">Visites, no persones.</p>' +
-      '<details><summary>Per secció</summary><table class="taula">' + d.perSeccio.map(function (s) { return '<tr><td>' + esc(s.seccio) + '</td><td>' + s.n + '</td></tr>'; }).join('') + '</table></details></section>';
-    // Enquestes
-    h += '<section class="targeta"><h3>Enquestes de l\'app</h3>' + (d.enquestes.length ? d.enquestes.map(function (e) {
-      return '<details><summary>' + esc(e.titol || e.id) + ' · ' + esc(e.estat) + '</summary>' +
-        '<label>Estat</label><select id="ee' + esc(e.id) + '">' + ['esborrany', 'activa', 'tancada'].map(function (s) { return '<option' + (s === e.estat ? ' selected' : '') + '>' + s + '</option>'; }).join('') +
-        '</select><label>Obertura</label><input type="date" id="eo' + esc(e.id) + '" value="' + esc(e.obertura) + '"><label>Tancament</label><input type="date" id="et' + esc(e.id) + '" value="' + esc(e.tancament) +
-        '"><label>Resultats</label><select id="er' + esc(e.id) + '">' + ['en_acabar', 'data', 'mai'].map(function (s) { return '<option' + (s === e.resultats ? ' selected' : '') + '>' + s + '</option>'; }).join('') +
-        '</select><label>Data dels resultats (si has triat «data»)</label><input type="date" id="edr' + esc(e.id) + '" value="' + esc(e.data_resultats) + '"><label class="opcio"><input type="checkbox" id="ed' + esc(e.id) + '"' + (e.destacada ? ' checked' : '') + '>Destacada a l\'inici</label>' +
-        '<button class="boto petit" type="button" data-enq="' + esc(e.id) + '">Guardar</button></details>';
-    }).join('') : '<p class="sec">Les enquestes noves les prepara Claude al full. Ací les obris i les tanques. Les de Forms van a l\'espai de cada grup.</p>') + '</section>';
-    // Formació
-    h += '<section class="targeta"><h3>Formació</h3><p class="sec">Qui veu cada peça: «Pública» la veu tothom; «Només» la veuen els grups indicats. Grups: «tots» o els identificadors separats per comes (p. ex. neteja,aigua).</p>' +
-      (d.formacio.length ? d.formacio.map(function (f, i) {
-        var gs = String(f.grups || '').split(',').map(function (x) { return x.trim(); }).filter(String)
-          .map(function (x) { return x === 'tots' ? 'tots els grups' : (nomGrup[x] || x); }).join(', ');
-        var vis = !f.actiu ? '<span class="vis vis-off">' + esc(t('inactiva')) + '</span>' :
-          (f.public ? '<span class="vis vis-pub">' + esc(t('pubVis')) + '</span>' : '<span class="vis vis-grup">' + esc(t('nomesGrups')) + ': ' + esc(gs || '—') + '</span>');
-        return '<details><summary><span class="sum-tit">' + esc(f.titol) + '</span>' + vis + '</summary>' +
-          '<label class="opcio"><input type="checkbox" id="fp' + i + '"' + (f.public ? ' checked' : '') + '>Pública (la veu tothom)</label><label>Grups</label><input type="text" id="fg' + i + '" value="' + esc(f.grups) +
-          '"><label class="opcio"><input type="checkbox" id="fa' + i + '"' + (f.actiu ? ' checked' : '') + '>Activa</label><button class="boto petit" type="button" data-form="' + i + '" data-id="' + esc(f.fitxer_id) + '">Guardar</button></details>';
-      }).join('') : '<p class="sec">Deixa les peces a la carpeta «Formació» de Drive. Cada hora entren ací.</p>') +
-      '<button class="boto sec2 petit" type="button" id="bsync">Sincronitzar ara</button></section>';
-    // Codis
-    var rn = t('rolNom');
-    h += '<section class="targeta"><h3>Codis</h3><p class="sec">Cada codi es mostra una sola vegada, quan es genera. No poses noms a l\'etiqueta.</p><table class="taula">' + d.codis.map(function (k) {
-      var qui = (rn[k.rol] || k.rol) + (k.rol === 'grup' ? ': ' + (nomGrup[k.ref] || k.ref) : '');
-      return '<tr><td>' + esc(qui) + '</td><td>' + esc(k.etiqueta) + '</td><td>' + esc(k.creat) + '</td><td>' + (k.actiu ? (k.rol === 'admin' ? 'actiu' :
-        '<a href="#" data-desact="' + k.fila + '">Desactivar</a>') : '—') + '</td></tr>';
-    }).join('') + '</table><label for="nrol">Codi nou per a</label><select id="nrol"><option value="grup">Un grup</option><option value="reduit">Grup reduït</option><option value="assemblea">Assemblea</option><option value="revisio">Revisió</option></select>' +
-      '<div id="nrgrup"><label for="ngrup">Quin grup</label><select id="ngrup">' + d.grups.map(function (g) { return '<option value="' + esc(g.id) + '">' + esc(g.nom) + (g.actiu ? '' : ' (inactiu)') + '</option>'; }).join('') + '</select></div>' +
-      '<label for="netiq">Etiqueta</label><input type="text" id="netiq" placeholder="Per a què és (sense noms)"><button class="boto petit" type="button" id="bcodinou">Generar</button><div id="codinou"></div></section>';
-    // Votacions
-    h += '<section class="targeta"><h3>Votacions de l\'assemblea</h3><table class="taula">' + d.votacions.map(function (v) {
-      return '<tr><td>' + esc(v.id) + '</td><td>' + esc(v.titol) + '</td><td>' + esc(v.estat) + (v.estat === 'oberta' ? ' · <a href="#" data-tancar="' + esc(v.id) + '">Tancar</a>' : '') + '</td></tr>';
-    }).join('') + '</table><label>Votació nova</label><input type="text" id="vtitol" placeholder="Què es vota"><input type="text" id="vops" placeholder="Opcions separades per | (Sí|No|Abstenció)">' +
-      '<label>Tancament</label><input type="date" id="vtanc"><button class="boto petit" type="button" id="bvot">Crear</button>' +
-      '<label>Codis de vot</label><select id="cvv">' + d.votacions.map(function (v) { return '<option>' + esc(v.id) + '</option>'; }).join('') +
-      '</select><input type="number" id="cvn" min="1" max="200" placeholder="Quants"><button class="boto petit" type="button" id="bcv">Generar codis</button>' +
-      '<p class="sec">Es reparteixen sense apuntar qui rep cada codi.</p><div id="cvout"></div></section>';
-    // Interruptors, al final
-    h += '<section class="targeta interr"><h3>' + esc(t('interruptors')) + '</h3><p class="sec">' + esc(t('avisInterr')) + '</p>' + [['congelat', 'App congelada (període electoral)'], ['comptador_public', 'Comptador públic'],
-      ['avisos_correu', 'Avisos per correu'], ['resum_setmanal', 'Resum dels dilluns'], ['contractes_actiu', 'Importar contractes de la Plataforma']].map(function (o) {
-      return '<label class="opcio"><input type="checkbox" data-cfg="' + o[0] + '"' + (d.config[o[0]] ? ' checked' : '') + '>' + esc(o[1]) + '</label>';
-    }).join('') + '</section><div id="errpan"></div>';
+    var M = t('menu');
+    var desti = { grups: '#intern/reduit', revisio: '#intern/revisio', assemblea: '#intern/assemblea' };
+    var h;
+    if (!sec || !M[sec] || desti[sec]) {
+      h = capInterna(t('panell'), t('gestio')) + '<p class="sec">' + esc(t('panellIntro')) + '</p><div class="menu-gestio">' +
+        Object.keys(M).map(function (k) {
+          var n = k === 'revisio' && np ? '<span class="vis vis-pub">' + np + '</span>' :
+            (k === 'grups' ? '<span class="vis vis-grup">' + d.grups.filter(function (g) { return g.actiu; }).length + ' actius</span>' : '');
+          return '<a class="tile' + (k === 'interruptors' ? ' tile-avis' : '') + '" href="' + (desti[k] || '#intern/panell/' + k) + '"><b>' + esc(M[k][0]) + n + '</b><span>' + esc(M[k][1]) + '</span></a>';
+        }).join('') + '</div>';
+      pinta(h);
+      activarEixir();
+      return;
+    }
+    h = capInterna(M[sec][0], t('gestio')) + '<p class="sec">' + esc(M[sec][1]) + '</p>';
+    if (sec === 'queveu') {
+      h += '<section class="targeta"><ul class="rols">' + t('queVeuLlista').map(function (r) { return '<li><b>' + esc(r[0]) + '</b>' + esc(r[1]) + '</li>'; }).join('') + '</ul></section>';
+    }
+    if (sec === 'comptadors') {
+      var max = Math.max.apply(null, [1].concat(d.perDia.map(function (x) { return x.n; })));
+      h += '<section class="targeta"><p>Visites hui: <b>' + c.visitesHui + '</b> · 30 dies: <b>' + c.visites30 + '</b><br>Respostes: <b>' +
+        c.respostes + '</b> · Propostes: <b>' + c.propostes + '</b> · Inscripcions: <b>' + c.inscripcions + '</b></p>' +
+        (d.perDia.length ? '<div class="dies">' : '<div class="dies amagat">') + d.perDia.map(function (x) { return '<i title="' + esc(x.data) + ': ' + x.n + '" style="height:' + Math.round(x.n * 100 / max) + '%"></i>'; }).join('') +
+        '</div><p class="sec">Visites, no persones.</p><h3>Per secció</h3><table class="taula">' + d.perSeccio.map(function (s) { return '<tr><td>' + esc(s.seccio) + '</td><td>' + s.n + '</td></tr>'; }).join('') + '</table></section>';
+    }
+    if (sec === 'enquestes') {
+      h += '<section class="targeta">' + (d.enquestes.length ? d.enquestes.map(function (e) {
+        return '<details><summary>' + esc(e.titol || e.id) + ' · ' + esc(e.estat) + '</summary>' +
+          '<label>Estat</label><select id="ee' + esc(e.id) + '">' + ['esborrany', 'activa', 'tancada'].map(function (s) { return '<option' + (s === e.estat ? ' selected' : '') + '>' + s + '</option>'; }).join('') +
+          '</select><label>Obertura</label><input type="date" id="eo' + esc(e.id) + '" value="' + esc(e.obertura) + '"><label>Tancament</label><input type="date" id="et' + esc(e.id) + '" value="' + esc(e.tancament) +
+          '"><label>Resultats</label><select id="er' + esc(e.id) + '">' + ['en_acabar', 'data', 'mai'].map(function (s) { return '<option' + (s === e.resultats ? ' selected' : '') + '>' + s + '</option>'; }).join('') +
+          '</select><label>Data dels resultats (si has triat «data»)</label><input type="date" id="edr' + esc(e.id) + '" value="' + esc(e.data_resultats) + '"><label class="opcio"><input type="checkbox" id="ed' + esc(e.id) + '"' + (e.destacada ? ' checked' : '') + '>Destacada a l\'inici</label>' +
+          '<button class="boto petit" type="button" data-enq="' + esc(e.id) + '">Guardar</button></details>';
+      }).join('') : '<p class="sec">Les enquestes noves les prepara Claude al full. Ací les obris i les tanques. Les de Forms van a l\'espai de cada grup.</p>') + '</section>';
+    }
+    if (sec === 'formacio') {
+      h += '<section class="targeta"><p class="sec">«Pública» la veu tothom; «Només» la veuen els grups indicats. Grups: «tots» o els identificadors separats per comes (p. ex. neteja,aigua).</p>' +
+        (d.formacio.length ? d.formacio.map(function (f, i) {
+          var gs = String(f.grups || '').split(',').map(function (x) { return x.trim(); }).filter(String)
+            .map(function (x) { return x === 'tots' ? 'tots els grups' : (nomGrup[x] || x); }).join(', ');
+          var vis = !f.actiu ? '<span class="vis vis-off">' + esc(t('inactiva')) + '</span>' :
+            (f.public ? '<span class="vis vis-pub">' + esc(t('pubVis')) + '</span>' : '<span class="vis vis-grup">' + esc(t('nomesGrups')) + ': ' + esc(gs || '—') + '</span>');
+          return '<details><summary><span class="sum-tit">' + esc(f.titol) + '</span>' + vis + '</summary>' +
+            '<label class="opcio"><input type="checkbox" id="fp' + i + '"' + (f.public ? ' checked' : '') + '>Pública (la veu tothom)</label><label>Grups</label><input type="text" id="fg' + i + '" value="' + esc(f.grups) +
+            '"><label class="opcio"><input type="checkbox" id="fa' + i + '"' + (f.actiu ? ' checked' : '') + '>Activa</label><button class="boto petit" type="button" data-form="' + i + '" data-id="' + esc(f.fitxer_id) + '">Guardar</button></details>';
+        }).join('') : '<p class="sec">Deixa les peces a la carpeta «Formació» de Drive. Cada hora entren ací.</p>') +
+        '<button class="boto sec2 petit" type="button" id="bsync">Sincronitzar ara</button></section>';
+    }
+    if (sec === 'codis') {
+      var rn = t('rolNom');
+      h += '<section class="targeta"><p class="sec">Cada codi es mostra una sola vegada, quan es genera. No poses noms a l\'etiqueta.</p><table class="taula">' + d.codis.map(function (k) {
+        var qui = (rn[k.rol] || k.rol) + (k.rol === 'grup' ? ': ' + (nomGrup[k.ref] || k.ref) : '');
+        return '<tr><td>' + esc(qui) + '</td><td>' + esc(k.etiqueta) + '</td><td>' + esc(k.creat) + '</td><td>' + (k.actiu ? (k.rol === 'admin' ? 'actiu' :
+          '<a href="#" data-desact="' + k.fila + '">Desactivar</a>') : '—') + '</td></tr>';
+      }).join('') + '</table><h3>Codi nou</h3><label for="nrol">Per a</label><select id="nrol"><option value="grup">Un grup</option><option value="reduit">Grup reduït</option><option value="assemblea">Assemblea</option><option value="revisio">Revisió</option></select>' +
+        '<div id="nrgrup"><label for="ngrup">Quin grup</label><select id="ngrup">' + d.grups.map(function (g) { return '<option value="' + esc(g.id) + '">' + esc(g.nom) + (g.actiu ? '' : ' (inactiu)') + '</option>'; }).join('') + '</select></div>' +
+        '<label for="netiq">Etiqueta</label><input type="text" id="netiq" placeholder="Per a què és (sense noms)"><button class="boto petit" type="button" id="bcodinou">Generar</button><div id="codinou"></div></section>';
+    }
+    if (sec === 'votacions') {
+      h += '<section class="targeta"><table class="taula">' + d.votacions.map(function (v) {
+        return '<tr><td>' + esc(v.id) + '</td><td>' + esc(v.titol) + '</td><td>' + esc(v.estat) + (v.estat === 'oberta' ? ' · <a href="#" data-tancar="' + esc(v.id) + '">Tancar</a>' : '') + '</td></tr>';
+      }).join('') + '</table><label>Votació nova</label><input type="text" id="vtitol" placeholder="Què es vota"><input type="text" id="vops" placeholder="Opcions separades per | (Sí|No|Abstenció)">' +
+        '<label>Tancament</label><input type="date" id="vtanc"><button class="boto petit" type="button" id="bvot">Crear</button>' +
+        '<label>Codis de vot</label><select id="cvv">' + d.votacions.map(function (v) { return '<option>' + esc(v.id) + '</option>'; }).join('') +
+        '</select><input type="number" id="cvn" min="1" max="200" placeholder="Quants"><button class="boto petit" type="button" id="bcv">Generar codis</button>' +
+        '<p class="sec">Es reparteixen sense apuntar qui rep cada codi.</p><div id="cvout"></div></section>';
+    }
+    if (sec === 'interruptors') {
+      h += '<section class="targeta interr">' + [['congelat', 'App congelada (període electoral)'], ['comptador_public', 'Comptador públic'],
+        ['avisos_correu', 'Avisos per correu'], ['resum_setmanal', 'Resum dels dilluns'], ['contractes_actiu', 'Importar contractes de la Plataforma']].map(function (o) {
+        return '<label class="opcio"><input type="checkbox" data-cfg="' + o[0] + '"' + (d.config[o[0]] ? ' checked' : '') + '>' + esc(o[1]) + '</label>';
+      }).join('') + '</section>';
+    }
+    h += '<div id="errpan"></div>';
     pinta(h);
     activarEixir();
-    var accio = function (b, nom, p, ok) { return quan(b, api('apiPanellAccio', S.codi, nom, p), ok || function () { vPanell(); }, 'errpan'); };
+    var accio = function (b, nom, p, ok) { return quan(b, api('apiPanellAccio', S.codi, nom, p), ok || function () { vPanell(sec); }, 'errpan'); };
+    var siHi = function (id, fn) { if ($(id)) fn($(id)); };
     Array.prototype.forEach.call(document.querySelectorAll('[data-cfg]'), function (x) {
       x.onchange = function () { accio(x, 'config', { clau: x.getAttribute('data-cfg'), valor: x.checked }, function () {}); };
     });
@@ -1108,16 +1161,16 @@ function vPanell() {
     Array.prototype.forEach.call(document.querySelectorAll('[data-tancar]'), function (a) {
       a.onclick = function (ev) { ev.preventDefault(); accio(a, 'tancarVotacio', { id: a.getAttribute('data-tancar') }); };
     });
-    $('bsync').onclick = function () { accio($('bsync'), 'sincronitzar', {}); };
-    $('nrol').onchange = function () { $('nrgrup').style.display = valor('nrol') === 'grup' ? '' : 'none'; };
-    $('bcodinou').onclick = function () {
+    siHi('bsync', function (b) { b.onclick = function () { accio(b, 'sincronitzar', {}); }; });
+    siHi('nrol', function (x) { x.onchange = function () { $('nrgrup').style.display = valor('nrol') === 'grup' ? '' : 'none'; }; });
+    if ($('bcodinou')) $('bcodinou').onclick = function () {
       var rol = valor('nrol');
       accio($('bcodinou'), 'codi', { rol: rol, ref: rol === 'grup' ? valor('ngrup') : '', etiqueta: valor('netiq') }, function (r) {
         $('codinou').innerHTML = '<div class="codi">' + esc(r.codi) + '</div><p class="sec">Apunta\'l ara: no es tornarà a mostrar.</p>';
       });
     };
-    $('bvot').onclick = function () { accio($('bvot'), 'votacio', { titol: valor('vtitol'), opcions: valor('vops'), tancament: valor('vtanc') }); };
-    $('bcv').onclick = function () {
+    siHi('bvot', function (b) { b.onclick = function () { accio(b, 'votacio', { titol: valor('vtitol'), opcions: valor('vops'), tancament: valor('vtanc') }); }; });
+    if ($('bcv')) $('bcv').onclick = function () {
       accio($('bcv'), 'codisVot', { votacio: valor('cvv'), n: valor('cvn') }, function (r) {
         $('cvout').innerHTML = '<p class="sec">Imprimix-los i retalla\'ls. No es tornaran a mostrar.</p>' + r.codis.map(function (k) { return '<div class="codi">' + esc(k) + '</div>'; }).join('');
       });
