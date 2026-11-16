@@ -86,3 +86,23 @@ summary{cursor:pointer;font-weight:700;min-height:40px;display:flex;align-items:
 .formacio-grup summary::after{content:'\203A';position:absolute;right:6px;top:50%;transform:translateY(-50%) rotate(90deg);font-size:1.6em;font-weight:700;color:var(--taronja)}
 .formacio-grup[open] summary::after{transform:translateY(-50%) rotate(-90deg)}
 .formacio-grup[open] summary{margin-bottom:12px}
+/* espais interns (16 nov.) */
+.rols{list-style:none;padding:0;margin:8px 0 14px}
+.rols li{padding:8px 0;border-bottom:1px solid var(--linia);font-size:.94em}
+.rols li:last-child{border-bottom:0}
+.rols b{display:block}
+.sec-int{display:flex;align-items:center;gap:10px;margin:26px 0 8px}
+.sec-int b{flex:0 0 32px;height:32px;border-radius:50%;background:var(--taronja);color:var(--blau);display:flex;align-items:center;justify-content:center;font-weight:800}
+.sec-int .sec-tit{flex:1;font-weight:800;font-size:1.12em}
+.vis{display:inline-block;font-size:.68em;font-weight:800;letter-spacing:.03em;padding:3px 8px;border-radius:6px;white-space:nowrap;margin-left:8px}
+.vis-grup{background:var(--blau);color:#fff}
+.vis-pub{background:var(--taronja);color:var(--blau)}
+.vis-off{background:#E3E8EE;color:var(--gris)}
+.avis-int{background:#EAF1F8;border-left:5px solid var(--blau);border-radius:10px;padding:12px 14px;margin:12px 0;font-size:.92em}
+.enllacos-int{display:flex;gap:18px;margin:4px 0}
+.fila-grup{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:8px 0;border-bottom:1px solid var(--linia)}
+.fila-grup span:first-child{font-weight:700}
+summary .sum-tit{flex:1}
+.interr{border:2px dashed var(--linia)}
+.nota-pub{margin-top:14px}
+h4{margin:12px 0 4px;font-size:.98em}
