@@ -42,7 +42,8 @@ var T = {
     capFormacio: "Encara no hi ha peces de formació.", veure: "Obrir", noFormacio: "Esta formació ja no està disponible.",
     infografia: ["infografia", "infografies"], video: ["vídeo", "vídeos"], document: ["document", "documents"], tocaImatge: "Toca una imatge per a vore-la més gran.",
     capGrup: "Els grups de treball comencen després de l'acte del 21 de novembre.",
-    tancades: "propostes tancades", queDiu: "Què ens vau dir", estudiant: "Què estem estudiant",
+    tancades: "propostes tancades", tancada1: "proposta tancada", voreGrup: "Vore el grup",
+    grupsIntro: "Toca un grup per a vore què estudia, què ens vau dir i les propostes que tanca.", queDiu: "Què ens vau dir", estudiant: "Què estem estudiant",
     propGrup: "Propostes del grup", alPrograma: "Al programa", veins: "Propostes de veïns per a este grup",
     proposarGrup: "Envia una proposta a este grup", capEstudi: "El grup tot just comença.",
     notaPublica: "El treball intern del grup no es publica: ací ixen només les propostes que el grup tanca i les que passen al programa.",
@@ -175,7 +176,8 @@ var T = {
     capFormacio: "Todavía no hay piezas de formación.", veure: "Abrir", noFormacio: "Esta formación ya no está disponible.",
     infografia: ["infografía", "infografías"], video: ["vídeo", "vídeos"], document: ["documento", "documentos"], tocaImatge: "Toca una imagen para verla más grande.",
     capGrup: "Los grupos de trabajo empiezan después del acto del 21 de noviembre.",
-    tancades: "propuestas cerradas", queDiu: "Qué nos dijisteis", estudiant: "Qué estamos estudiando",
+    tancades: "propuestas cerradas", tancada1: "propuesta cerrada", voreGrup: "Ver el grupo",
+    grupsIntro: "Toca un grupo para ver qué estudia, qué nos dijisteis y las propuestas que cierra.", queDiu: "Qué nos dijisteis", estudiant: "Qué estamos estudiando",
     propGrup: "Propuestas del grupo", alPrograma: "En el programa", veins: "Propuestas de vecinos para este grupo",
     proposarGrup: "Envía una propuesta a este grupo", capEstudi: "El grupo acaba de empezar.",
     notaPublica: "El trabajo interno del grupo no se publica: aquí salen solo las propuestas que el grupo cierra y las que pasan al programa.",
@@ -618,11 +620,17 @@ RUTES.grups = function () {
   carrega();
   api('apiGrupsPublic', LANG).then(function (llista) {
     var h = tornar() + '<h2>' + esc(t('grups')) + '</h2>';
-    if (!llista.length) h += '<p class="sec">' + esc(t('capGrup')) + '</p>';
-    h += '<div class="llista">' + llista.map(function (g) {
-      return '<a class="fila" href="#seguiment/' + encodeURIComponent(g.id) + '"><span>' + esc(g.nom) + '</span><span class="sec">' +
-        g.propostesTancades + ' ' + esc(t('tancades')) + ' ›</span></a>';
-    }).join('') + '</div>';
+    h += '<p class="sec">' + esc(t(llista.length ? 'grupsIntro' : 'capGrup')) + '</p>';
+    // Cada grup, en una targeta: nom, què estudia (si el servidor l'envia), estat i botó per a entrar.
+    h += llista.map(function (g) {
+      var n = Number(g.propostesTancades) || 0;
+      var estat = n > 0 ? n + ' ' + esc(t(n === 1 ? 'tancada1' : 'tancades')) : esc(t('capEstudi'));
+      return '<a class="targeta grup-targ" href="#seguiment/' + encodeURIComponent(g.id) + '">' +
+        '<span class="grup-nom">' + esc(g.nom) + '</span>' +
+        (g.estudiant ? '<span class="grup-est">' + esc(g.estudiant) + '</span>' : '') +
+        '<span class="grup-peu"><span class="sec">' + estat + '</span>' +
+        '<span class="boto petit">' + esc(t('voreGrup')) + ' ›</span></span></a>';
+    }).join('');
     pinta(h);
   }).catch(falla);
 };

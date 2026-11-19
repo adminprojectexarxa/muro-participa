@@ -118,3 +118,8 @@ h4{margin:12px 0 4px;font-size:.98em}
 .gran-num b{font-size:2.6em;font-weight:800;color:var(--taronja);line-height:1;white-space:nowrap}
 .gran-num span{font-weight:700;line-height:1.3}
 .indic h4{margin-top:6px}
+a.grup-targ{display:block;text-decoration:none;color:var(--blau);box-shadow:0 1px 6px rgba(0,52,101,.12)}
+.grup-nom{display:block;font-weight:800;font-size:1.1em;line-height:1.3}
+.grup-est{display:block;margin-top:6px;line-height:1.4;font-weight:500}
+.grup-peu{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:12px}
+.grup-peu .boto.petit{margin:0 0 0 auto}
