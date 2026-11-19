@@ -123,3 +123,7 @@ a.grup-targ{display:block;text-decoration:none;color:var(--blau);box-shadow:0 1p
 .grup-est{display:block;margin-top:6px;line-height:1.4;font-weight:500}
 .grup-peu{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:12px}
 .grup-peu .boto.petit{margin:0 0 0 auto}
+.tema-tit{margin:22px 0 8px;padding-left:10px;border-left:4px solid var(--taronja);font-size:1.05em;font-weight:800;color:var(--blau)}
+.formacio-grup summary{flex-direction:column;align-items:flex-start;justify-content:center}
+.formacio-grup.fila{margin:0;padding:12px 0;border-top:1px solid #EFE4D2}
+.formacio-grup.fila:first-child{border-top:0;padding-top:2px}

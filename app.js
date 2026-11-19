@@ -39,7 +39,8 @@ var T = {
     teuNum: "Proposta enviada. El teu número és", segueix: "Seguix la teua proposta",
     numero: "Número", buscar: "Buscar", publicades: "Propostes publicades", capProposta: "Encara no n'hi ha cap.",
     noTrobada: "No trobem eixa proposta.", pendentRev: "pendent de revisió",
-    capFormacio: "Encara no hi ha peces de formació.", veure: "Obrir", noFormacio: "Esta formació ja no està disponible.",
+    capFormacio: "Encara no hi ha peces de formació.", temaAltres: "Altres",
+    notaDocs: "Cada enllaç obri el document a la seua font oficial.", veure: "Obrir", noFormacio: "Esta formació ja no està disponible.",
     infografia: ["infografia", "infografies"], video: ["vídeo", "vídeos"], document: ["document", "documents"], tocaImatge: "Toca una imatge per a vore-la més gran.",
     capGrup: "Els grups de treball comencen després de l'acte del 21 de novembre.",
     tancades: "propostes tancades", tancada1: "proposta tancada", voreGrup: "Vore el grup",
@@ -173,7 +174,8 @@ var T = {
     teuNum: "Propuesta enviada. Tu número es", segueix: "Sigue tu propuesta",
     numero: "Número", buscar: "Buscar", publicades: "Propuestas publicadas", capProposta: "Todavía no hay ninguna.",
     noTrobada: "No encontramos esa propuesta.", pendentRev: "pendiente de revisión",
-    capFormacio: "Todavía no hay piezas de formación.", veure: "Abrir", noFormacio: "Esta formación ya no está disponible.",
+    capFormacio: "Todavía no hay piezas de formación.", temaAltres: "Otros",
+    notaDocs: "Cada enlace abre el documento en su fuente oficial.", veure: "Abrir", noFormacio: "Esta formación ya no está disponible.",
     infografia: ["infografía", "infografías"], video: ["vídeo", "vídeos"], document: ["documento", "documentos"], tocaImatge: "Toca una imagen para verla más grande.",
     capGrup: "Los grupos de trabajo empiezan después del acto del 21 de noviembre.",
     tancades: "propuestas cerradas", tancada1: "propuesta cerrada", voreGrup: "Ver el grupo",
@@ -283,7 +285,7 @@ function agruparNovetats(llista) {
     var clau = n.tipus + '|' + n.ruta + '|' + titol, parts = Number(n.parts) || 1;
     if (n.tipus === 'formacio' && idx[clau] !== undefined) { out[idx[clau]].parts += parts; return; }
     idx[clau] = out.length;
-    out.push({ tipus: n.tipus, titol: titol, ruta: n.ruta, data: n.data, grup: n.grup, parts: parts });
+    out.push({ tipus: n.tipus, titol: titol, ruta: n.ruta, data: n.data, grup: n.grup, parts: parts, tema: n.tema });
   });
   return out;
 }
@@ -291,6 +293,7 @@ function agruparNovetats(llista) {
 function llistaNovetats(llista) {
   return '<div class="novetats">' + agruparNovetats(llista).map(function (n) {
     var tipus = (t('novTipus') || {})[n.tipus] || '';
+    if (n.tipus === 'formacio' && n.tema && tipus) tipus += ' · ' + n.tema;
     var sub = n.grup ? n.grup : (n.parts > 1 ? n.parts + ' ' + t('parts') : '');
     return '<a class="nov" href="#' + esc(n.ruta) + '"><span class="nov-cap">' + (tipus ? '<span class="etiqueta gris">' + esc(tipus) + '</span>' : '') +
       '<span class="nov-data">' + esc(dtCurt(n.data)) + '</span></span><span class="nov-tit">' + esc(n.titol) + '</span>' +
@@ -577,6 +580,26 @@ function compteFormacio(peces) {
   if (n.altre) parts.push(n.altre + ' ' + t('document')[n.altre > 1 ? 1 : 0]);
   return parts.join(' · ');
 }
+// Agrupa les formacions per tema. Si el servidor no envia temes, torna null i es pinta com abans.
+// Les formacions sense tema van al final (part pública) o dalt (espai del grup: són les del grup).
+function perTemes(llista, ordreSenseTema) {
+  if (!llista.some(function (f) { return f.tema; })) return null;
+  var temes = [], idx = {};
+  llista.forEach(function (f) {
+    var k = f.tema || '';
+    if (idx[k] === undefined) {
+      idx[k] = temes.length;
+      temes.push({ id: k, nom: f.temaNom || '', ordre: k ? (Number(f.temaOrdre) || 900) : ordreSenseTema, items: [] });
+    }
+    temes[idx[k]].items.push(f);
+  });
+  temes.forEach(function (tm) {
+    tm.items.sort(function (a, b) { return (Number(a.ordreTema) || 900) - (Number(b.ordreTema) || 900); });
+  });
+  temes.sort(function (a, b) { return a.ordre - b.ordre; });
+  return temes;
+}
+function titolTema(text) { return '<h3 class="tema-tit">' + esc(text) + '</h3>'; }
 function llistaFormacions(llista, ruta) {
   return '<div class="novetats">' + llista.map(function (f) {
     return '<a class="nov" href="#' + esc(ruta(f)) + '"><span class="nov-tit">' + esc(f.titol) + '</span>' +
@@ -609,8 +632,13 @@ RUTES.formacio = function (id) {
       return;
     }
     var h = tornar() + '<h2>' + esc(t('formacio')) + '</h2>';
-    h += llista.length ? '<section class="targeta">' + llistaFormacions(llista, function (f) { return 'formacio/' + f.id; }) + '</section>' :
-      '<p class="sec">' + esc(t('capFormacio')) + '</p>';
+    var rutaF = function (f) { return 'formacio/' + f.id; };
+    var temes = perTemes(llista, 1000);
+    if (!llista.length) h += '<p class="sec">' + esc(t('capFormacio')) + '</p>';
+    else if (!temes) h += '<section class="targeta">' + llistaFormacions(llista, rutaF) + '</section>';
+    else temes.forEach(function (tm) {
+      h += titolTema(tm.id ? tm.nom : t('temaAltres')) + '<section class="targeta">' + llistaFormacions(tm.items, rutaF) + '</section>';
+    });
     pinta(h);
   }).catch(falla);
 };
@@ -864,13 +892,23 @@ function vGrup(gid) {
     h += secInt(2, t('estudiant'), 'pub') + '<section class="targeta"><p>' + esc(g.estudiant || '—') + '</p></section>';
     // 3. Formació
     h += secInt(3, t('formacio'), '');
-    h += altres.length ? altres.map(function (f) {
-      return '<details class="targeta formacio-grup"><summary><span class="nov-tit">' + esc(f.titol) + '</span><span class="nov-sub">' +
-        esc(compteFormacio(f.peces)) + '</span></summary>' + pecesFormacio(f) + '</details>';
-    }).join('') : (fms.length ? '<p class="sec">—</p>' : (d.formacio.length ? d.formacio.map(function (f) { return enllac(f.veure, f.titol); }).join('') : '<p class="sec">—</p>'));
+    var detallsF = function (f, fila) {
+      return '<details class="' + (fila ? 'formacio-grup fila' : 'targeta formacio-grup') + '"><summary><span class="nov-tit">' + esc(f.titol) +
+        '</span><span class="nov-sub">' + esc(compteFormacio(f.peces)) + '</span></summary>' + pecesFormacio(f) + '</details>';
+    };
+    // Per temes: un títol i una targeta per tema, amb una fila per formació (la llista queda més curta).
+    var temesG = perTemes(altres, 0);
+    h += altres.length ? (temesG ? temesG.map(function (tm) {
+      return titolTema(tm.id ? tm.nom : g.nom) + '<section class="targeta">' +
+        tm.items.map(function (f) { return detallsF(f, true); }).join('') + '</section>';
+    }).join('') : altres.map(function (f) { return detallsF(f, false); }).join('')) : (fms.length ? '<p class="sec">—</p>' : (d.formacio.length ? d.formacio.map(function (f) { return enllac(f.veure, f.titol); }).join('') : '<p class="sec">—</p>'));
     // 4. Documents i contractes
     h += secInt(4, t('docsContractes'), 'grup');
-    h += '<h3>' + esc(t('documents')) + '</h3>' + (d.documents.length ? d.documents.map(function (f) { return enllac(f.veure, f.titol); }).join('') : '<p class="sec">—</p>');
+    h += '<h3>' + esc(t('documents')) + '</h3>' + (d.documents.length ? '<section class="targeta"><p class="sec">' + esc(t('notaDocs')) +
+      '</p><div class="novetats">' + d.documents.map(function (f) {
+        return '<a class="nov" target="_blank" rel="noopener" href="' + esc(f.veure) + '"><span class="nov-tit">' + esc(f.titol) + '</span>' +
+          (f.font ? '<span class="nov-sub">' + esc(f.font) + '</span>' : '') + '</a>';
+      }).join('') + '</div></section>' : '<p class="sec">—</p>');
     h += '<h3>' + esc(t('contractes')) + '</h3>';
     if (d.contractes.length) {
       h += '<section class="targeta"><table class="taula"><tr><th>Exp.</th><th>Objecte</th><th>Import</th><th>Estat</th></tr>' +
