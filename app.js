@@ -19,7 +19,7 @@ var T = {
     preguntes: "Pregunta com funciona", preguntesSub: "Respostes clares",
     ple: "El ple, en clar", pleSub: "Què s'ha votat",
     mapa: "Mapa", mapaSub: "Propostes per llocs",
-    novetats: "Novetats", novTipus: { enquesta: "Enquesta", formacio: "Formació", grup: "Grup de treball", ple: "Ple" }, parts: "parts", totesNovetats: "Veure totes les novetats", capNovetats: "Encara no hi ha novetats.",
+    novetats: "Novetats", novTipus: { enquesta: "Enquesta nova", formacio: "Formació nova", grup: "Proposta d'un grup", ple: "El ple, en clar" }, parts: "parts", totesNovetats: "Veure totes les novetats", capNovetats: "Encara no hi ha novetats.",
     mesos: ["gen.", "febr.", "març", "abr.", "maig", "juny", "jul.", "ag.", "set.", "oct.", "nov.", "des."], implicat: "Vols implicar-te més?",
     implicatText: "Hi ha cinc maneres de participar. Tu tries fins on vols arribar.",
     comParticipar: "Com participar", oberta: "Enquesta oberta", contestar: "Contestar",
@@ -154,7 +154,7 @@ var T = {
     preguntes: "Pregunta cómo funciona", preguntesSub: "Respuestas claras",
     ple: "El pleno, claro", pleSub: "Qué se ha votado",
     mapa: "Mapa", mapaSub: "Propuestas por lugares",
-    novetats: "Novedades", novTipus: { enquesta: "Encuesta", formacio: "Formación", grup: "Grupo de trabajo", ple: "Pleno" }, parts: "partes", totesNovetats: "Ver todas las novedades", capNovetats: "Todavía no hay novedades.",
+    novetats: "Novedades", novTipus: { enquesta: "Nueva encuesta", formacio: "Nueva formación", grup: "Propuesta de un grupo", ple: "El pleno, en claro" }, parts: "partes", totesNovetats: "Ver todas las novedades", capNovetats: "Todavía no hay novedades.",
     mesos: ["ene.", "feb.", "mar.", "abr.", "may.", "jun.", "jul.", "ago.", "sept.", "oct.", "nov.", "dic."], implicat: "¿Quieres implicarte más?",
     implicatText: "Hay cinco maneras de participar. Tú eliges hasta dónde llegar.",
     comParticipar: "Cómo participar", oberta: "Encuesta abierta", contestar: "Contestar",
@@ -293,11 +293,10 @@ function agruparNovetats(llista) {
 function llistaNovetats(llista) {
   return '<div class="novetats">' + agruparNovetats(llista).map(function (n) {
     var tipus = (t('novTipus') || {})[n.tipus] || '';
-    if (n.tipus === 'formacio' && n.tema && tipus) tipus += ' · ' + n.tema;
-    var sub = n.grup ? n.grup : (n.parts > 1 ? n.parts + ' ' + t('parts') : '');
+    // Línia 1: tipus i data curta. Línia 2: el nom (proposta d'un grup: «Grup: proposta»). Sense nombre de parts.
+    var titol = n.tipus === 'grup' && n.grup ? n.grup + ': ' + n.titol : n.titol;
     return '<a class="nov" href="#' + esc(n.ruta) + '"><span class="nov-cap">' + (tipus ? '<span class="etiqueta gris">' + esc(tipus) + '</span>' : '') +
-      '<span class="nov-data">' + esc(dtCurt(n.data)) + '</span></span><span class="nov-tit">' + esc(n.titol) + '</span>' +
-      (sub ? '<span class="nov-sub">' + esc(sub) + '</span>' : '') + '</a>';
+      '<span class="nov-data">' + esc(dtCurt(n.data)) + '</span></span><span class="nov-tit">' + esc(titol) + '</span></a>';
   }).join('') + '</div>';
 }
 function valor(id) { var el = $(id); return el ? el.value : ''; }
