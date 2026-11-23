@@ -11,18 +11,37 @@ var T = {
     lema: "Què falta a Muro? Digues-ho ací, sense donar el teu nom.",
     carregant: "Carregant…", tornar: "Tornar", compartir: "Compartir per WhatsApp",
     errXarxa: "No s'ha pogut connectar. Comprova la connexió i torna-ho a provar.",
-    enquestes: "Enquestes", enquestesSub: "Contesta en un minut",
-    propostes: "Propostes", propostesSub: "Problema i solució",
-    formacio: "Formació", formacioSub: "Com funciona l'Ajuntament",
+    enquestes: "Enquestes", propostes: "Propostes",
+    formacio: "Formació", formacioSub: "Com funciona l'Ajuntament, en imatges curtes",
     grups: "Grups", grupsSub: "Seguix el treball fet",
     programa: "Programa", programaSub: "D'on ix cada mesura",
     preguntes: "Pregunta com funciona", preguntesSub: "Respostes clares",
     ple: "El ple, en clar", pleSub: "Què s'ha votat",
     mapa: "Mapa", mapaSub: "Propostes per llocs",
     novetats: "Novetats", novTipus: { enquesta: "Enquesta nova", formacio: "Formació nova", grup: "Proposta d'un grup", ple: "El ple, en clar" }, parts: "parts", totesNovetats: "Veure totes les novetats", capNovetats: "Encara no hi ha novetats.",
-    mesos: ["gen.", "febr.", "març", "abr.", "maig", "juny", "jul.", "ag.", "set.", "oct.", "nov.", "des."], implicat: "Vols implicar-te més?",
-    implicatText: "Hi ha cinc maneres de participar. Tu tries fins on vols arribar.",
-    comParticipar: "Com participar", oberta: "Enquesta oberta", contestar: "Contestar",
+    mesos: ["gen.", "febr.", "març", "abr.", "maig", "juny", "jul.", "ag.", "set.", "oct.", "nov.", "des."],
+    oberta: "Enquesta oberta", contestar: "Contestar",
+    // portada per nivells (23 nov., fase 2)
+    comVols: "Com vols participar?", nivellsNota: "Tu tries fins on vols arribar. Sense pressions. Sense judicis.",
+    nv1: "Estar informat", nv1s: "Novetats, el ple i el treball dels grups",
+    nv1t: "Seguix què passa a Muro i el treball de cada grup, sense cap compromís. Ningú no sabrà que ens segueixes si no vols.",
+    nv2: "Participar anònimament", nv2s: "Enquestes i propostes",
+    nv2t: "Contesta enquestes i fes propostes. No et demanem el nom ni cap dada.",
+    nv3: "Pertànyer a un grup de treball", nv3s: "Treballa un tema del poble, amb formació",
+    nv3t: "Cada grup treballa un tema del poble i en trau propostes per al programa. Per a entrar cal que sapiguem qui eres.",
+    nv3passos: ["Partim del que ens vau dir a les enquestes.", "Estudiem el tema amb formació i amb els documents de l'Ajuntament.",
+                "Fem propostes i triem les més importants.", "L'assemblea les vota i les aprovades passen al programa."],
+    nv3conf: "El grup treballa per WhatsApp i videoconferència. El que es parla al grup es queda al grup.",
+    nv4: "Membre de l'assemblea", nv4s: "Vota les propostes dels grups",
+    nv4t: "L'assemblea vota les propostes que tanquen els grups i aprova el programa, capítol a capítol. Cada vot és anònim. Per a entrar cal que sapiguem qui eres.",
+    nv5: "Participant polític", nv5s: "Implica't en la política municipal",
+    nv5t: "Implica't en la política municipal, també com a possible candidat.",
+    queFaGrup: "Com treballa un grup", veureGrups: "Els grups i què estudien", vullEntrar: "Vull entrar",
+    jaGrup: "Ja soc d'un grup", jaGrupSub: "Entra amb el codi del grup", jaMembre: "Ja soc membre", jaMembreSub: "Entra amb el codi d'assemblea",
+    ferUna: "Fer una proposta", propostaText: "Quin problema veus i quina solució proposes. Sense nom ni contacte.",
+    segueixSub: "Amb el número que vas rebre", totesEnq: "Totes les enquestes", totesEnqSub: "Obertes i amb resultats",
+    novetatsSub: "L'últim que s'ha publicat", infoSub: "Pròxims actes i xarxes",
+    enllacDirecte: "Enllaç directe:", altraEnq: "Hi ha una altra enquesta oberta", escriunos: "Escriu-nos",
     preguntesN: "preguntes · anònima", fins: "Fins al",
     congelat: "Període electoral: l'app no publica novetats ni accepta enviaments fins després de les eleccions.",
     enviar: "Enviar", seguent: "Enviar respostes",
@@ -69,14 +88,7 @@ var T = {
       "Qui vol entrar en un grup de treball ens dona les seues dades fora de l'app, d'acord amb el nostre Codi de privacitat.",
       "Contacte: projectexarxa2027@gmail.com"
     ],
-    nivellsTitol: "Com participar: els 5 nivells",
-    nivellsPeu: "Els nivells no són escales fixes ni jerarquies rígides. Pots entrar pel que vulgues i avançar quan estigues preparat. Sense pressions. Sense judicis.",
-    n1: "Seguidor", n1t: "Estigues informat sense cap compromís. Ningú no sabrà que ens segueixes si no vols.", n1b: "Canal de WhatsApp",
-    n2: "Col·laborador puntual", n2t: "Ajuda en una acció concreta, quan tu vulgues.",
-    n3: "Grup de treball", n3t: "Treballa un tema del poble, amb formació. Per a entrar cal que sapiguem qui eres.",
-    n4: "Membre actiu", n4t: "Participa en l'assemblea i vota les decisions.",
-    n5: "Participant polític", n5t: "Implica't en la política municipal, també com a possible candidat.",
-    escriunos: "Escriu-nos", parlem: "Parlem",
+    n1b: "Canal de WhatsApp", parlem: "Parlem",
     mapaText: "Propostes publicades per llocs del poble.",
     // espais interns
     codi: "Codi", entrar: "Entrar", eixir: "Eixir",
@@ -146,18 +158,36 @@ var T = {
     lema: "¿Qué le falta a Muro? Dilo aquí, sin dar tu nombre.",
     carregant: "Cargando…", tornar: "Volver", compartir: "Compartir por WhatsApp",
     errXarxa: "No se ha podido conectar. Comprueba la conexión y vuelve a intentarlo.",
-    enquestes: "Encuestas", enquestesSub: "Contesta en un minuto",
-    propostes: "Propuestas", propostesSub: "Problema y solución",
-    formacio: "Formación", formacioSub: "Cómo funciona el Ayuntamiento",
+    enquestes: "Encuestas", propostes: "Propuestas",
+    formacio: "Formación", formacioSub: "Cómo funciona el Ayuntamiento, en imágenes cortas",
     grups: "Grupos", grupsSub: "Sigue el trabajo hecho",
     programa: "Programa", programaSub: "De dónde sale cada medida",
     preguntes: "Pregunta cómo funciona", preguntesSub: "Respuestas claras",
     ple: "El pleno, claro", pleSub: "Qué se ha votado",
     mapa: "Mapa", mapaSub: "Propuestas por lugares",
     novetats: "Novedades", novTipus: { enquesta: "Nueva encuesta", formacio: "Nueva formación", grup: "Propuesta de un grupo", ple: "El pleno, en claro" }, parts: "partes", totesNovetats: "Ver todas las novedades", capNovetats: "Todavía no hay novedades.",
-    mesos: ["ene.", "feb.", "mar.", "abr.", "may.", "jun.", "jul.", "ago.", "sept.", "oct.", "nov.", "dic."], implicat: "¿Quieres implicarte más?",
-    implicatText: "Hay cinco maneras de participar. Tú eliges hasta dónde llegar.",
-    comParticipar: "Cómo participar", oberta: "Encuesta abierta", contestar: "Contestar",
+    mesos: ["ene.", "feb.", "mar.", "abr.", "may.", "jun.", "jul.", "ago.", "sept.", "oct.", "nov.", "dic."],
+    oberta: "Encuesta abierta", contestar: "Contestar",
+    comVols: "¿Cómo quieres participar?", nivellsNota: "Tú eliges hasta dónde llegar. Sin presiones. Sin juicios.",
+    nv1: "Estar informado", nv1s: "Novedades, el pleno y el trabajo de los grupos",
+    nv1t: "Sigue lo que pasa en Muro y el trabajo de cada grupo, sin ningún compromiso. Nadie sabrá que nos sigues si no quieres.",
+    nv2: "Participar de forma anónima", nv2s: "Encuestas y propuestas",
+    nv2t: "Contesta encuestas y haz propuestas. No te pedimos el nombre ni ningún dato.",
+    nv3: "Pertenecer a un grupo de trabajo", nv3s: "Trabaja un tema del pueblo, con formación",
+    nv3t: "Cada grupo trabaja un tema del pueblo y saca propuestas para el programa. Para entrar necesitamos saber quién eres.",
+    nv3passos: ["Partimos de lo que nos dijisteis en las encuestas.", "Estudiamos el tema con formación y con los documentos del Ayuntamiento.",
+                "Hacemos propuestas y elegimos las más importantes.", "La asamblea las vota y las aprobadas pasan al programa."],
+    nv3conf: "El grupo trabaja por WhatsApp y videoconferencia. Lo que se habla en el grupo se queda en el grupo.",
+    nv4: "Miembro de la asamblea", nv4s: "Vota las propuestas de los grupos",
+    nv4t: "La asamblea vota las propuestas que cierran los grupos y aprueba el programa, capítulo a capítulo. Cada voto es anónimo. Para entrar necesitamos saber quién eres.",
+    nv5: "Participante político", nv5s: "Implícate en la política municipal",
+    nv5t: "Implícate en la política municipal, también como posible candidato.",
+    queFaGrup: "Cómo trabaja un grupo", veureGrups: "Los grupos y qué estudian", vullEntrar: "Quiero entrar",
+    jaGrup: "Ya soy de un grupo", jaGrupSub: "Entra con el código del grupo", jaMembre: "Ya soy miembro", jaMembreSub: "Entra con el código de asamblea",
+    ferUna: "Hacer una propuesta", propostaText: "Qué problema ves y qué solución propones. Sin nombre ni contacto.",
+    segueixSub: "Con el número que recibiste", totesEnq: "Todas las encuestas", totesEnqSub: "Abiertas y con resultados",
+    novetatsSub: "Lo último publicado", infoSub: "Próximos actos y redes",
+    enllacDirecte: "Enlace directo:", altraEnq: "Hay otra encuesta abierta", escriunos: "Escríbenos",
     preguntesN: "preguntas · anónima", fins: "Hasta el",
     congelat: "Periodo electoral: la app no publica novedades ni acepta envíos hasta después de las elecciones.",
     enviar: "Enviar", seguent: "Enviar respuestas",
@@ -204,14 +234,7 @@ var T = {
       "Quien quiere entrar en un grupo de trabajo nos da sus datos fuera de la app, de acuerdo con nuestro Código de privacidad.",
       "Contacto: projectexarxa2027@gmail.com"
     ],
-    nivellsTitol: "Cómo participar: los 5 niveles",
-    nivellsPeu: "Los niveles no son escalas fijas ni jerarquías rígidas. Puedes entrar por el que quieras y avanzar cuando estés preparado. Sin presiones. Sin juicios.",
-    n1: "Seguidor", n1t: "Infórmate sin ningún compromiso. Nadie sabrá que nos sigues si no quieres.", n1b: "Canal de WhatsApp",
-    n2: "Colaborador puntual", n2t: "Ayuda en una acción concreta, cuando tú quieras.",
-    n3: "Grupo de trabajo", n3t: "Trabaja un tema del pueblo, con formación. Para entrar necesitamos saber quién eres.",
-    n4: "Miembro activo", n4t: "Participa en la asamblea y vota las decisiones.",
-    n5: "Participante político", n5t: "Implícate en la política municipal, también como posible candidato.",
-    escriunos: "Escríbenos", parlem: "Hablemos",
+    n1b: "Canal de WhatsApp", parlem: "Hablemos",
     mapaText: "Propuestas publicadas por lugares del pueblo."
   }
 };
@@ -325,7 +348,7 @@ function capcalera() {
   };
   $('lletra').onclick = function () { document.body.classList.toggle('gran'); };
   $('peu').innerHTML = '<p>' + esc(t('anonim')) + '</p><p><a href="#privacitat">' + esc(t('privacitat')) +
-    '</a><a href="#info">' + esc(t('info')) + '</a><a href="#nivells">' + esc(t('comParticipar')) +
+    '</a><a href="#info">' + esc(t('info')) +
     '</a><a href="#membres">' + esc(t('membres')) + '</a><a href="#gestio">' + esc(t('gestio')) + '</a></p>';
 }
 
@@ -369,31 +392,38 @@ RUTES.novetats = function () {
 };
 
 // ---------- inici ----------
+// Portada (23 nov., fase 2): l'enquesta oberta dalt, un botó per nivell de participació, Formació i novetats.
+var RUTA_NIVELL = { 1: 'informat', 2: 'participar', 3: 'grup-treball', 4: 'assemblea', 5: 'politic' };
+function targetaEnquesta(e, perXarxes) {
+  return '<section class="targeta"><span class="etiqueta">' + esc(t('oberta')) + '</span><h2>' + esc(e.titol) +
+    '</h2><p class="sec">' + esc(e.preguntes) + ' ' + esc(t('preguntesN')) +
+    (e.tancament ? ' · ' + esc(t('fins')) + ' ' + esc(dt(e.tancament)) : '') +
+    '</p><a class="boto" href="#enquesta/' + encodeURIComponent(e.id) + '">' + esc(t('contestar')) + '</a>' +
+    (perXarxes ? compartir('enquesta/' + e.id, e.titol) + enllacDirecte('enquesta') : '') + '</section>';
+}
+// Enllaç per a les xarxes. #enquesta obri sempre l'enquesta oberta del moment.
+function enllacDirecte(r) { return '<p class="enll">' + esc(t('enllacDirecte')) + ' ' + esc(urlRuta(r)) + '</p>'; }
 RUTES.inici = function () {
   // El menú es pinta de seguida; l'enquesta destacada i les novetats arriben quan respon el servidor.
-  var raj = function (r, a, b) { return '<a class="rajola" href="#' + r + '">' + esc(t(a)) + '<span>' + esc(t(b)) + '</span></a>'; };
+  var niv = function (n) {
+    return '<a class="niv" href="#' + RUTA_NIVELL[n] + '"><b class="n">' + n + '</b><span class="tx"><b>' + esc(t('nv' + n)) +
+      '</b><span>' + esc(t('nv' + n + 's')) + '</span></span></a>';
+  };
   pinta('<div id="iniciDalt"></div>' +
-    '<nav class="rajoles">' + raj('enquestes', 'enquestes', 'enquestesSub') + raj('propostes', 'propostes', 'propostesSub') +
-    raj('formacio', 'formacio', 'formacioSub') + raj('grups', 'grups', 'grupsSub') + raj('programa', 'programa', 'programaSub') +
-    raj('preguntes', 'preguntes', 'preguntesSub') + raj('ple', 'ple', 'pleSub') + raj('mapa', 'mapa', 'mapaSub') + '</nav>' +
+    '<h2 class="titol-sec">' + esc(t('comVols')) + '</h2><nav>' + [1, 2, 3, 4, 5].map(niv).join('') + '</nav>' +
+    '<p class="nota-niv">' + esc(t('nivellsNota')) + '</p>' +
+    '<a class="boto-form" href="#formacio"><i aria-hidden="true">i</i><span><b>' + esc(t('formacio')) + '</b><span>' +
+    esc(t('formacioSub')) + '</span></span></a>' +
     '<div id="iniciNov"><section class="targeta" aria-busy="true"><h2>' + esc(t('novetats')) + '</h2>' +
     '<div class="esquelet"></div><div class="esquelet"></div><div class="esquelet curt"></div></section></div>' +
-    '<div id="iniciComp"></div>' +
-    '<section class="targeta nivell"><h2>' + esc(t('implicat')) + '</h2><p>' + esc(t('implicatText')) +
-    '</p><a class="boto sec2" href="#nivells">' + esc(t('comParticipar')) + '</a></section>');
+    '<div id="iniciComp"></div>');
   api('apiInici', LANG).then(function (d) {
     var dalt = $('iniciDalt'), nov = $('iniciNov'), comp = $('iniciComp');
     if (!dalt || !nov || !comp) return; // la persona ja ha canviat de pantalla
     S.enllacos = d.enllacos;
     var h = '';
     if (d.periode.congelat) h += '<div class="avis">' + esc(t('congelat')) + '</div>';
-    if (d.destacada) {
-      var e = d.destacada;
-      h += '<section class="targeta"><span class="etiqueta">' + esc(t('oberta')) + '</span><h2>' + esc(e.titol) +
-        '</h2><p class="sec">' + e.preguntes + ' ' + esc(t('preguntesN')) +
-        (e.tancament ? ' · ' + esc(t('fins')) + ' ' + esc(dt(e.tancament)) : '') +
-        '</p><a class="boto" href="#enquesta/' + encodeURIComponent(e.id) + '">' + esc(t('contestar')) + '</a></section>';
-    }
+    if (d.destacada) h += targetaEnquesta(d.destacada, false);
     dalt.innerHTML = h;
     nov.innerHTML = (d.novetats && d.novetats.length) ?
       '<section class="targeta"><h2>' + esc(t('novetats')) + '</h2>' + llistaNovetats(d.novetats) +
@@ -404,6 +434,69 @@ RUTES.inici = function () {
     var nov = $('iniciNov');
     if (nov) nov.innerHTML = error(e);
   });
+};
+
+// ---------- pàgines dels nivells (23 nov., fase 2) ----------
+// Els nivells 3 i 4 tenen pàgines separades; per dins porten al mateix contacte.
+function capNivell(n) {
+  return tornar() + '<div class="cap-niv"><b class="n">' + n + '</b><h2>' + esc(t('nv' + n)) + '</h2></div>' +
+    '<p class="sec">' + esc(t('nv' + n + 't')) + '</p>';
+}
+function filaNivell(r, tit, sub) {
+  return '<a class="fila-niv" href="#' + r + '"><span>' + esc(tit) + '<small>' + esc(sub) + '</small></span></a>';
+}
+// Contacte per a entrar: el WhatsApp del full (Config) o, si encara no està posat, el correu del projecte.
+function contacte(e, text) {
+  if (e.whatsapp) return '<a class="boto" target="_blank" rel="noopener" href="' + esc(e.whatsapp) + '">' + esc(text) + '</a>';
+  return '<a class="boto" href="mailto:projectexarxa2027@gmail.com">' + esc(t('escriunos')) + '</a>';
+}
+// L'enquesta oberta: la destacada o, si no n'hi ha, la primera oberta.
+function enquestaOberta() {
+  return Promise.all([api('apiInici', LANG), api('apiEnquestes', LANG)]).then(function (r) {
+    S.enllacos = r[0].enllacos;
+    return { congelat: r[0].periode && r[0].periode.congelat, oberta: r[0].destacada || r[1].actives[0] || null };
+  });
+}
+RUTES.informat = function () {
+  ambEnllacos(function (e) {
+    pinta(capNivell(1) + enllac(e.canal, t('n1b')) + '<div class="files-niv">' +
+      filaNivell('novetats', t('novetats'), t('novetatsSub')) + filaNivell('grups', t('grups'), t('grupsSub')) +
+      filaNivell('ple', t('ple'), t('pleSub')) + filaNivell('programa', t('programa'), t('programaSub')) +
+      filaNivell('info', t('info'), t('infoSub')) + '</div>');
+  });
+};
+RUTES.participar = function () {
+  carrega();
+  enquestaOberta().then(function (r) {
+    var h = capNivell(2);
+    if (r.congelat) h += '<div class="avis">' + esc(t('congelat')) + '</div>';
+    h += r.oberta ? targetaEnquesta(r.oberta, true) : '<section class="targeta"><p class="sec">' + esc(t('capEnquesta')) + '</p></section>';
+    h += '<section class="targeta"><h2>' + esc(t('ferProposta')) + '</h2><p class="sec">' + esc(t('propostaText')) + '</p>' +
+      '<a class="boto" href="#propostes">' + esc(t('ferUna')) + '</a>' + compartir('propostes', t('lema')) + enllacDirecte('propostes') + '</section>' +
+      '<div class="files-niv"><details class="fila-niv seguir"><summary><span>' + esc(t('segueix')) + '<small>' + esc(t('segueixSub')) +
+      '</small></span></summary><label for="pnum">' + esc(t('numero')) + '</label><input type="number" id="pnum" min="1">' +
+      '<button class="boto sec2" type="button" id="bnum">' + esc(t('buscar')) + '</button></details>' +
+      filaNivell('enquestes', t('totesEnq'), t('totesEnqSub')) + filaNivell('preguntes', t('preguntes'), t('preguntesSub')) +
+      filaNivell('mapa', t('mapa'), t('mapaSub')) + '</div>';
+    pinta(h);
+    $('bnum').onclick = function () { var n = valor('pnum'); if (n) ves('proposta/' + n); };
+  }).catch(falla);
+};
+RUTES['grup-treball'] = function () {
+  ambEnllacos(function (e) {
+    pinta(capNivell(3) + '<section class="targeta passos"><h3>' + esc(t('queFaGrup')) + '</h3>' +
+      t('nv3passos').map(function (p, i) { return '<div><b>' + (i + 1) + '</b><span>' + esc(p) + '</span></div>'; }).join('') +
+      '<p class="sec">' + esc(t('nv3conf')) + '</p></section>' + contacte(e, t('vullEntrar')) +
+      '<div class="files-niv">' + filaNivell('grups', t('veureGrups'), t('grupsSub')) + filaNivell('membres', t('jaGrup'), t('jaGrupSub')) + '</div>');
+  });
+};
+RUTES.assemblea = function () {
+  ambEnllacos(function (e) {
+    pinta(capNivell(4) + contacte(e, t('vullEntrar')) + '<div class="files-niv">' + filaNivell('membres', t('jaMembre'), t('jaMembreSub')) + '</div>');
+  });
+};
+RUTES.politic = function () {
+  ambEnllacos(function (e) { pinta(capNivell(5) + contacte(e, t('parlem'))); });
 };
 
 // ---------- enquestes ----------
@@ -428,6 +521,13 @@ RUTES.enquestes = function () {
 
 RUTES.enquesta = function (id) {
   carrega();
+  if (!id) { // enllaç fix per a les xarxes (#enquesta): obri l'enquesta oberta del moment
+    enquestaOberta().then(function (r) { if (r.oberta) obrirEnquesta(r.oberta.id); else RUTES.enquestes(); }).catch(falla);
+    return;
+  }
+  obrirEnquesta(id);
+};
+function obrirEnquesta(id) {
   api('apiEnquesta', id, LANG).then(function (e) {
     var h = tornar('enquestes') + '<span class="etiqueta">' + esc(t('enquestes')) + '</span><h2>' + esc(e.titol) + '</h2>';
     if (e.descripcio) h += '<p>' + esc(e.descripcio) + '</p>';
@@ -483,12 +583,18 @@ RUTES.enquesta = function (id) {
       quan($('benq'), api('apiRespondre', e.id, resp), function (r) {
         var h2 = '<div class="exit">' + esc(t('gracies')) + '</div>';
         if (r.resultatsVisibles) h2 += '<a class="boto" href="#resultats/' + encodeURIComponent(e.id) + '">' + esc(t('veureResultats')) + '</a>';
-        h2 += compartir('enquesta/' + e.id, e.titol) + '<p>' + tornar() + '</p>';
+        // Continuïtat: la següent enquesta oberta i «Fes una proposta».
+        h2 += compartir('enquesta/' + e.id, e.titol) + '<div id="seguentEnq"></div>' +
+          '<a class="boto sec2" href="#propostes">' + esc(t('ferProposta')) + '</a><p>' + tornar() + '</p>';
         pinta(h2);
+        api('apiEnquestes', LANG).then(function (d) {
+          var altra = d.actives.filter(function (x) { return String(x.id) !== String(e.id); })[0], c = $('seguentEnq');
+          if (altra && c) c.innerHTML = '<h3>' + esc(t('altraEnq')) + '</h3>' + targetaEnquesta(altra, false);
+        }).catch(function () {});
       }, 'errenq');
     };
   }).catch(falla);
-};
+}
 
 RUTES.resultats = function (id) {
   carrega();
@@ -755,18 +861,8 @@ function ambEnllacos(f) {
   api('apiInici', LANG).then(function (d) { S.enllacos = d.enllacos; f(S.enllacos); }).catch(falla);
 }
 
-RUTES.nivells = function () {
-  ambEnllacos(function (e) {
-    var wa = e.whatsapp, h = tornar() + '<h2>' + esc(t('nivellsTitol')) + '</h2>';
-    [['n1', 'n1t', e.canal, 'n1b'], ['n2', 'n2t', wa, 'escriunos'], ['n3', 'n3t', wa, 'escriunos'],
-     ['n4', 'n4t', wa, 'escriunos'], ['n5', 'n5t', wa, 'parlem']].forEach(function (n, i) {
-      h += '<section class="targeta nivell"><span class="etiqueta">' + (i + 1) + '</span><h2>' + esc(t(n[0])) + '</h2><p>' + esc(t(n[1])) + '</p>' +
-        enllac(n[2], t(n[3])) + '</section>';
-    });
-    h += '<p class="sec">' + esc(t('nivellsPeu')) + '</p>';
-    pinta(h);
-  });
-};
+// «Com participar» ja no existix (23 nov.): els nivells són a la portada. Els enllaços vells porten a l'inici.
+RUTES.nivells = function () { ves('inici', true); };
 
 RUTES.info = function () {
   carrega();

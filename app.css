@@ -32,9 +32,6 @@ p{margin:6px 0}
 .boto.sec2{background:#fff;border:2px solid var(--blau)}
 .boto.petit{display:inline-flex;width:auto;min-height:40px;font-size:.88em;margin:4px 6px 0 0}
 .boto:disabled{opacity:.5}
-.rajoles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0 0 14px}
-.rajola{background:#fff;border-radius:14px;min-height:84px;padding:12px;display:flex;flex-direction:column;justify-content:space-between;text-decoration:none;font-weight:800}
-.rajola span{color:var(--gris);font-weight:600;font-size:.8em}
 .llista a.fila{display:flex;justify-content:space-between;align-items:center;min-height:48px;background:#fff;border-radius:12px;padding:0 14px;margin-bottom:8px;text-decoration:none;font-weight:700}
 .novetats{margin-top:4px}
 .nov{display:block;position:relative;padding:12px 30px 12px 0;border-top:1px solid #EFE4D2;text-decoration:none;color:var(--blau)}
@@ -73,7 +70,6 @@ summary{cursor:pointer;font-weight:700;min-height:40px;display:flex;align-items:
 .esquelet.curt{width:60%}
 @keyframes brill{0%{background-position:100% 0}100%{background-position:-100% 0}}
 @media (prefers-reduced-motion:reduce){.esquelet{animation:none}}
-.nivell{border-left:6px solid var(--taronja)}
 .mini{width:100%;max-height:340px;object-fit:contain;border-radius:10px;background:#F4EEE3;margin:8px 0}
 .video{width:100%;aspect-ratio:9/16;max-height:520px;border:0;border-radius:10px;margin:8px 0;background:#000}
 .parany{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
@@ -127,3 +123,29 @@ a.grup-targ{display:block;text-decoration:none;color:var(--blau);box-shadow:0 1p
 .formacio-grup summary{flex-direction:column;align-items:flex-start;justify-content:center}
 .formacio-grup.fila{margin:0;padding:12px 0;border-top:1px solid #EFE4D2}
 .formacio-grup.fila:first-child{border-top:0;padding-top:2px}
+/* portada per nivells (23 nov., fase 2) */
+h2.titol-sec{font-size:1.12em;margin:18px 0 10px}
+a.niv{display:flex;align-items:center;gap:12px;background:#fff;border-radius:14px;padding:12px 32px 12px 12px;margin:0 0 8px;text-decoration:none;color:var(--blau);position:relative;box-shadow:0 1px 0 rgba(0,52,101,.08)}
+a.niv::after,a.boto-form::after,a.fila-niv::after,.fila-niv summary::after{content:'\203A';position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:1.7em;font-weight:700;line-height:1;color:var(--taronja)}
+a.niv b.n,.cap-niv b.n{flex:0 0 34px;height:34px;border-radius:50%;background:var(--taronja);color:var(--blau);display:flex;align-items:center;justify-content:center;font-weight:800}
+a.niv .tx>b{display:block;font-weight:800;line-height:1.25}
+a.niv .tx>span{display:block;color:var(--gris);font-size:.82em;font-weight:600;margin-top:2px;line-height:1.3}
+.nota-niv{color:var(--gris);font-size:.82em;font-weight:600;text-align:center;margin:10px 0 16px}
+a.boto-form{display:flex;align-items:center;gap:12px;background:var(--blau);color:#fff;border-radius:14px;padding:14px 32px 14px 14px;margin:0 0 14px;text-decoration:none;position:relative}
+a.boto-form>span>b{display:block;font-weight:800;font-size:1.05em}
+a.boto-form>span>span{display:block;color:#C9D6E6;font-size:.82em;font-weight:600;margin-top:2px}
+a.boto-form i{flex:0 0 34px;height:34px;border-radius:9px;background:var(--taronja);color:var(--blau);display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:800}
+.cap-niv{display:flex;align-items:center;gap:10px;margin:6px 0 4px}
+.cap-niv h2{margin:0}
+.enll{font-size:.74em;font-weight:700;color:var(--gris);background:#F4EEE3;border-radius:8px;padding:6px 8px;margin:10px 0 0;word-break:break-all;user-select:all}
+.files-niv{margin:14px 0}
+a.fila-niv,.fila-niv summary{display:flex;align-items:center;min-height:52px;background:#fff;border-radius:12px;padding:8px 34px 8px 14px;margin-bottom:8px;text-decoration:none;color:var(--blau);font-weight:700;position:relative;line-height:1.3}
+a.fila-niv small,.fila-niv summary small{display:block;color:var(--gris);font-weight:600;font-size:.78em;margin-top:2px}
+details.fila-niv{margin:0}
+.fila-niv summary{list-style:none;cursor:pointer}
+.fila-niv summary::-webkit-details-marker{display:none}
+details.fila-niv[open] summary{margin-bottom:0;border-radius:12px 12px 0 0}
+details.fila-niv[open] summary::after{transform:translateY(-50%) rotate(90deg)}
+details.fila-niv[open]{background:#fff;border-radius:12px;padding:0 14px 14px;margin-bottom:8px}
+details.fila-niv[open] summary{margin:0 -14px;padding-left:14px}
+.passos h3{margin-top:0}
