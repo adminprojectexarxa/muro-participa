@@ -256,6 +256,13 @@ var LECTURES = ['apiInici', 'apiNovetats', 'apiFormacions', 'apiEnquestes', 'api
   'apiAcces', 'apiGrup', 'apiRevisio', 'apiReduit', 'apiAssemblea', 'apiPanell'];
 function api(fn) {
   var args = Array.prototype.slice.call(arguments, 1);
+  // Consulta començada per pre.js mentre es carregava la pàgina (24 nov.): s'aprofita una sola vegada.
+  var clauPre = fn + '|' + JSON.stringify(args), pre = window.PRE_DADES && window.PRE_DADES[clauPre];
+  if (pre) {
+    delete window.PRE_DADES[clauPre];
+    return pre.then(function (d) { if (!d || !d.ok) throw new Error('pre'); return d.valor; })
+      .catch(function () { return api.apply(null, [fn].concat(args)); });
+  }
   var errXarxa = function () { var e = new Error(t('errXarxa')); e.xarxa = true; return e; };
   var crida = function () {
     return fetch(APP_API, { method: 'POST', body: JSON.stringify({ fn: fn, args: args }), credentials: 'omit',
@@ -409,7 +416,8 @@ RUTES.inici = function () {
     return '<a class="niv" href="#' + RUTA_NIVELL[n] + '"><b class="n">' + n + '</b><span class="tx"><b>' + esc(t('nv' + n)) +
       '</b><span>' + esc(t('nv' + n + 's')) + '</span></span></a>';
   };
-  pinta('<div id="iniciDalt"></div>' +
+  pinta('<div id="iniciDalt"><section class="targeta esq-enq" aria-busy="true"><div class="esquelet etiq"></div>' +
+    '<div class="esquelet"></div><div class="esquelet curt"></div><div class="esquelet boto-esq"></div></section></div>' +
     '<h2 class="titol-sec">' + esc(t('comVols')) + '</h2><nav>' + [1, 2, 3, 4, 5].map(niv).join('') + '</nav>' +
     '<p class="nota-niv">' + esc(t('nivellsNota')) + '</p>' +
     '<a class="boto-form" href="#formacio"><i aria-hidden="true">i</i><span><b>' + esc(t('formacio')) + '</b><span>' +
@@ -425,6 +433,7 @@ RUTES.inici = function () {
     if (d.periode.congelat) h += '<div class="avis">' + esc(t('congelat')) + '</div>';
     if (d.destacada) h += targetaEnquesta(d.destacada, false);
     dalt.innerHTML = h;
+    if (window.performance && performance.mark) performance.mark('mp-inici-dades'); // per a mesurar la velocitat
     nov.innerHTML = (d.novetats && d.novetats.length) ?
       '<section class="targeta"><h2>' + esc(t('novetats')) + '</h2>' + llistaNovetats(d.novetats) +
       (d.mesNovetats ? '<a class="boto sec2" href="#novetats">' + esc(t('totesNovetats')) + '</a>' : '') + '</section>' : '';
@@ -433,6 +442,8 @@ RUTES.inici = function () {
   }).catch(function (e) {
     var nov = $('iniciNov');
     if (nov) nov.innerHTML = error(e);
+    var dalt = $('iniciDalt');
+    if (dalt) dalt.innerHTML = '';
   });
 };
 

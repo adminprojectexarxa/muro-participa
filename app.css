@@ -149,3 +149,6 @@ details.fila-niv[open] summary::after{transform:translateY(-50%) rotate(90deg)}
 details.fila-niv[open]{background:#fff;border-radius:12px;padding:0 14px 14px;margin-bottom:8px}
 details.fila-niv[open] summary{margin:0 -14px;padding-left:14px}
 .passos h3{margin-top:0}
+/* requadre gris de l'enquesta mentre carrega (24 nov.) */
+.esq-enq .esquelet.etiq{width:34%;height:22px;margin-top:0}
+.esq-enq .esquelet.boto-esq{height:48px;border-radius:12px;margin-bottom:0}
