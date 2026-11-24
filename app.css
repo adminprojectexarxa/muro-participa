@@ -152,3 +152,10 @@ details.fila-niv[open] summary{margin:0 -14px;padding-left:14px}
 /* requadre gris de l'enquesta mentre carrega (24 nov.) */
 .esq-enq .esquelet.etiq{width:34%;height:22px;margin-top:0}
 .esq-enq .esquelet.boto-esq{height:48px;border-radius:12px;margin-bottom:0}
+/* portada: dos botons fixos dalt (24 nov.) */
+.accions-inici{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:4px 0 6px}
+a.boto-accio{display:flex;flex-direction:column;justify-content:center;min-height:76px;padding:12px 14px;border-radius:14px;text-decoration:none;background:#fff;color:var(--blau);border:2px solid var(--blau);line-height:1.25}
+a.boto-accio b{font-weight:800;font-size:1.02em}
+a.boto-accio span{font-size:.8em;font-weight:600;color:var(--gris);margin-top:3px}
+a.boto-accio.prin{background:var(--taronja);border-color:var(--taronja)}
+a.boto-accio.prin span{color:var(--blau);opacity:.8}

@@ -22,6 +22,7 @@ var T = {
     mesos: ["gen.", "febr.", "març", "abr.", "maig", "juny", "jul.", "ag.", "set.", "oct.", "nov.", "des."],
     oberta: "Enquesta oberta", contestar: "Contestar",
     // portada per nivells (23 nov., fase 2)
+    enqActives: "Enquestes actives", enqSub: "Contesta en un minut", propSub: "Sense donar el teu nom",
     comVols: "Com vols participar?", nivellsNota: "Tu tries fins on vols arribar. Sense pressions. Sense judicis.",
     nv1: "Estar informat", nv1s: "Novetats, el ple i el treball dels grups",
     nv1t: "Seguix què passa a Muro i el treball de cada grup, sense cap compromís. Ningú no sabrà que ens segueixes si no vols.",
@@ -168,6 +169,7 @@ var T = {
     novetats: "Novedades", novTipus: { enquesta: "Nueva encuesta", formacio: "Nueva formación", grup: "Propuesta de un grupo", ple: "El pleno, en claro" }, parts: "partes", totesNovetats: "Ver todas las novedades", capNovetats: "Todavía no hay novedades.",
     mesos: ["ene.", "feb.", "mar.", "abr.", "may.", "jun.", "jul.", "ago.", "sept.", "oct.", "nov.", "dic."],
     oberta: "Encuesta abierta", contestar: "Contestar",
+    enqActives: "Encuestas activas", enqSub: "Contesta en un minuto", propSub: "Sin dar tu nombre",
     comVols: "¿Cómo quieres participar?", nivellsNota: "Tú eliges hasta dónde llegar. Sin presiones. Sin juicios.",
     nv1: "Estar informado", nv1s: "Novedades, el pleno y el trabajo de los grupos",
     nv1t: "Sigue lo que pasa en Muro y el trabajo de cada grupo, sin ningún compromiso. Nadie sabrá que nos sigues si no quieres.",
@@ -416,8 +418,10 @@ RUTES.inici = function () {
     return '<a class="niv" href="#' + RUTA_NIVELL[n] + '"><b class="n">' + n + '</b><span class="tx"><b>' + esc(t('nv' + n)) +
       '</b><span>' + esc(t('nv' + n + 's')) + '</span></span></a>';
   };
-  pinta('<div id="iniciDalt"><section class="targeta esq-enq" aria-busy="true"><div class="esquelet etiq"></div>' +
-    '<div class="esquelet"></div><div class="esquelet curt"></div><div class="esquelet boto-esq"></div></section></div>' +
+  // Dalt, dos botons fixos (24 nov.): «Fes una proposta» i «Enquestes actives». Ixen al moment, sense esperar Google.
+  pinta('<div id="iniciDalt"></div><div class="accions-inici">' +
+    '<a class="boto-accio prin" href="#propostes"><b>' + esc(t('ferProposta')) + '</b><span>' + esc(t('propSub')) + '</span></a>' +
+    '<a class="boto-accio" href="#enquestes"><b>' + esc(t('enqActives')) + '</b><span>' + esc(t('enqSub')) + '</span></a></div>' +
     '<h2 class="titol-sec">' + esc(t('comVols')) + '</h2><nav>' + [1, 2, 3, 4, 5].map(niv).join('') + '</nav>' +
     '<p class="nota-niv">' + esc(t('nivellsNota')) + '</p>' +
     '<a class="boto-form" href="#formacio"><i aria-hidden="true">i</i><span><b>' + esc(t('formacio')) + '</b><span>' +
@@ -431,8 +435,7 @@ RUTES.inici = function () {
     S.enllacos = d.enllacos;
     var h = '';
     if (d.periode.congelat) h += '<div class="avis">' + esc(t('congelat')) + '</div>';
-    if (d.destacada) h += targetaEnquesta(d.destacada, false);
-    dalt.innerHTML = h;
+    dalt.innerHTML = h; // dalt només ix l'avís de període electoral, si n'hi ha
     if (window.performance && performance.mark) performance.mark('mp-inici-dades'); // per a mesurar la velocitat
     nov.innerHTML = (d.novetats && d.novetats.length) ?
       '<section class="targeta"><h2>' + esc(t('novetats')) + '</h2>' + llistaNovetats(d.novetats) +
