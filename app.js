@@ -70,6 +70,7 @@ var T = {
     notaPublica: "El treball intern del grup no es publica: ací ixen només les propostes que el grup tanca i les que passen al programa.",
     membres: "Membres", gestio: "Gestió", mesMarcats: "Els problemes més marcats",
     notaIndic: "Cada persona podia marcar més d'un problema. Les dades són de qui ha contestat, no de tot Muro.",
+    notaIndic2: "Percentatges sobre les persones que han contestat l'enquesta. Les dades són de qui ha contestat, no de tot Muro.",
     programaBuit: "El programa es publicarà a partir de febrer, amb cada mesura enllaçada a la proposta o l'enquesta d'on ix.",
     pleBuit: "Encara no hi ha cap resum de ple.", font: "Font",
     ferPregunta: "Pregunta com funciona l'Ajuntament", laPregunta: "La teua pregunta",
@@ -217,6 +218,7 @@ var T = {
     notaPublica: "El trabajo interno del grupo no se publica: aquí salen solo las propuestas que el grupo cierra y las que pasan al programa.",
     membres: "Miembros", gestio: "Gestión", mesMarcats: "Los problemas más marcados",
     notaIndic: "Cada persona podía marcar más de un problema. Los datos son de quien ha contestado, no de todo Muro.",
+    notaIndic2: "Porcentajes sobre las personas que han contestado la encuesta. Los datos son de quien ha contestado, no de todo Muro.",
     programaBuit: "El programa se publicará a partir de febrero, con cada medida enlazada a la propuesta o la encuesta de donde sale.",
     pleBuit: "Todavía no hay ningún resumen de pleno.", font: "Fuente",
     ferPregunta: "Pregunta cómo funciona el Ayuntamiento", laPregunta: "Tu pregunta",
@@ -793,10 +795,22 @@ RUTES.seguiment = function (id) {
       '<div><b>3</b><span><strong>' + esc(t('propGrup')) + '</strong><br>' + g.fitxes.length + '</span></div>' +
       '<div><b>4</b><span><strong>' + esc(t('alPrograma')) + '</strong><br>' + alProg.length + '</span></div></section>';
     (g.indicadors || []).forEach(function (e) {
+      // Una línia que comença per «#» a les dades del full és un títol propi per a les barres de davall (26 nov.):
+      // per a enquestes on les barres no són problemes marcats (per exemple, Aigua: «#Què en pensen;…;#Primera prioritat;…»).
+      var ambTitols = e.barres.some(function (b) { return /^#/.test(b.opcio); }), cos = '';
+      if (ambTitols) {
+        var tros = [];
+        e.barres.forEach(function (b) {
+          if (/^#/.test(b.opcio)) { if (tros.length) { cos += barres(tros); tros = []; } cos += '<h4>' + esc(b.opcio.replace(/^#\s*/, '')) + '</h4>'; }
+          else tros.push(b);
+        });
+        if (tros.length) cos += barres(tros);
+      } else if (e.barres.length) {
+        cos = '<h4>' + esc(t('mesMarcats')) + '</h4>' + barres(e.barres);
+      }
       h += '<section class="targeta indic"><h3>' + esc(t('queDiu')) + '</h3><p class="sec">' + esc(e.titol) + '</p>' +
         (e.pct !== null && e.pct !== undefined ? '<div class="gran-num"><b>' + esc(e.pct) + ' %</b><span>' + esc(e.text) + '</span></div>' : '') +
-        (e.barres.length ? '<h4>' + esc(t('mesMarcats')) + '</h4>' + barres(e.barres) : '') +
-        '<p class="sec">' + esc(t('notaIndic')) + '</p></section>';
+        cos + '<p class="sec">' + esc(t(ambTitols ? 'notaIndic2' : 'notaIndic')) + '</p></section>';
     });
     g.fitxes.forEach(function (f) {
       h += '<section class="targeta"><span class="estat t">' + esc(f.estat) + '</span><h3>' + esc(f.titol) + '</h3><p><b>' +
